@@ -7,13 +7,17 @@ Virtual sincrónico, **lunes, miércoles y jueves de 19:00 a 22:00**, del 19 al 
 
 | Sesión | Fecha | Tema | Qué hay aquí |
 |---|---|---|---|
-| 0 | antes del curso | Repaso previo: IA y Python | [`s0/00_repaso.ipynb`](s0/00_repaso.ipynb) |
+| 0 | lun 19 oct (inicio) | Repaso previo: IA y Python | [`s0/`](s0/): repaso [`00_repaso.ipynb`](s0/00_repaso.ipynb) y **tarea** [`ejercicios_s0.ipynb`](s0/ejercicios_s0.ipynb) |
 | 1 | lun 19 oct | De los chatbots a los agentes de IA | [`s1/`](s1/): notebook 01 (la tarea), bucle sin framework, terminal de chat |
 | 2 | mié 21 oct | Diseño de agentes, herramientas y acciones | próximamente |
 | 3 | jue 22 oct | Conocimiento, contexto y memoria | próximamente |
 | 4 | lun 26 oct | Interoperabilidad, automatización y MCP | próximamente |
 | 5 | mié 28 oct | Flujos agénticos y sistemas de varios pasos | próximamente |
 | 6 | jue 29 oct | Despliegue y proyecto final | próximamente |
+
+## Tarea de la S0: `s0/ejercicios_s0.ipynb`
+
+Orden recomendado: **configurar** (`bash instalar.sh`) → **repaso** ([`s0/00_repaso.ipynb`](s0/00_repaso.ipynb)) → **ejercicios** ([`s0/ejercicios_s0.ipynb`](s0/ejercicios_s0.ipynb)). Son 13 ejercicios con autocorrección (✅/⏳): IA con código, Python para agentes, Pydantic y la **conexión de Pydantic AI con tu propia clave gratuita de Gemini** ([cómo crearla](docs/gemini.md)). Los ✅ son la evidencia; se revisa al inicio de la sesión 1. Detalles en [`s0/README.md`](s0/README.md).
 
 ## Tarea de la S1: `s1/01_primer_agente.ipynb`
 
@@ -70,7 +74,7 @@ Los notebooks arrancan con el modelo **simulado** (`COURSE_OFFLINE=1` en `.env`)
 ```
 instalar.sh / instalar.ps1   instalador de un paso (uv, dependencias, configurador)
 copiloto/    módulo pequeño compartido: configuración, configurador, modelo simulado, agente básico
-s0/          sesión 0: repaso (IA y Python)
+s0/          sesión 0: repaso y tarea de ejercicios (IA, Python, Pydantic, Gemini)
 s1/          sesión 1: notebook de la tarea, bucle sin framework, terminal de chat
 docs/        guías de instalación y de cada ruta de modelo
 fuentes/     para quien mantiene el repo: fuentes .py de los notebooks y su generador
