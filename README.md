@@ -22,15 +22,25 @@ Virtual sincrónico, **lunes, miércoles y jueves de 19:00 a 22:00**, del 19 al 
 
 **Es lo más importante de esta semana.** El notebook [`s1/01_primer_agente.ipynb`](s1/01_primer_agente.ipynb) tiene cinco ejercicios con autocorrección (✅/⏳) y un reto: escribir instrucciones, definir tu propio `output_type`, un despachador de tools robusto, medir el uso y comparar dos modelos. Funciona **sin red** con el modelo simulado y mejora mucho con IA real. Instrucciones en [`s1/README.md`](s1/README.md).
 
-## Instalar
+## Instalación en 3 pasos
 
-Necesitas [uv](https://docs.astral.sh/uv/) y Git. uv descarga su propio Python 3.12 sin tocar el de tu sistema.
+1. **Descarga el repositorio:** `git clone https://github.com/alex-roc/curso-agentes-uz.git` y entra a la carpeta, o pulsa *Code → Download ZIP* en GitHub y descomprímelo.
+2. **Ejecuta el instalador** (instala `uv`, Python 3.12 y las dependencias, y te guía para elegir y probar tu modelo):
+   - macOS, Linux o Git Bash en Windows: `bash instalar.sh`
+   - PowerShell en Windows: `powershell -ExecutionPolicy Bypass -File instalar.ps1`
+3. **Abre los notebooks:** `uv run jupyter lab`
+
+El único requisito previo es tener internet. Si prefieres hacerlo por partes: `uv sync` y luego `uv run copiloto-configurar` (repítelo cuando quieras cambiar de ruta). Alternativa en Jupyter: [`s0/configurar_y_probar.ipynb`](s0/configurar_y_probar.ipynb). Detalles en la sección siguiente.
+
+## Instalar a mano
+
+Si no usaste el instalador, necesitas [uv](https://docs.astral.sh/uv/) y Git. uv descarga su propio Python 3.12 sin tocar el de tu sistema.
 
 ```bash
 git clone https://github.com/alex-roc/curso-agentes-uz.git
 cd curso-agentes-uz
 uv sync                  # crea .venv con las dependencias fijadas en uv.lock
-cp .env.example .env     # tu configuración; .env nunca se sube a Git
+uv run copiloto-configurar   # crea .env, elige tu ruta de modelo y la prueba (.env nunca se sube a Git)
 uv run jupyter lab       # abre los notebooks
 ```
 
@@ -49,7 +59,7 @@ Los notebooks y scripts funcionan con cualquiera; cambia una línea de `.env` (`
 | OpenRouter `:free` | `openrouter` | Clave gratuita y un modelo que termine en `:free` | [docs/openrouter.md](docs/openrouter.md) |
 | Simulado | `offline` | Nada (no es IA: solo muestra el recorrido) | este README |
 
-Los notebooks arrancan con el modelo **simulado** (`COURSE_OFFLINE=1` en `.env`). Para IA real, pon `COURSE_OFFLINE=0` y **reinicia el kernel**. Comprueba tu ruta con `uv run copiloto-doctor --live`.
+Los notebooks arrancan con el modelo **simulado** (`COURSE_OFFLINE=1` en `.env`). Para IA real, pon `COURSE_OFFLINE=0` y **reinicia el kernel**. Comprueba tu ruta con `uv run copiloto-doctor --live`. `.env` tiene prioridad sobre las variables de tu terminal (p. ej. una `GEMINI_API_KEY` exportada), así lo que configuraste es lo que se usa.
 
 > En las rutas gratuitas tus mensajes viajan a un proveedor y pueden usarse para mejorar sus productos: usa solo datos ficticios.
 
@@ -61,7 +71,8 @@ Los notebooks arrancan con el modelo **simulado** (`COURSE_OFFLINE=1` en `.env`)
 ## Qué hay en el repositorio
 
 ```
-copiloto/    módulo pequeño compartido: configuración, modelo simulado, agente básico
+instalar.sh / instalar.ps1   instalador de un paso (uv, dependencias, configurador)
+copiloto/    módulo pequeño compartido: configuración, configurador, modelo simulado, agente básico
 s0/          sesión 0: repaso (IA y Python)
 s1/          sesión 1: notebook de la tarea, bucle sin framework, terminal de chat
 docs/        guías de instalación y de cada ruta de modelo

@@ -15,6 +15,7 @@ dependencies = [
 
 [project.scripts]
 copiloto-doctor = "copiloto.doctor:main"
+copiloto-configurar = "copiloto.configurar:main"
 
 [build-system]
 requires = ["hatchling"]

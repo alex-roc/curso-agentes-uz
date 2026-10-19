@@ -6,6 +6,11 @@ from .agente import crear_agente_basico
 from .config import Settings, describir_modelo, validar_ruta
 
 
+def prueba_en_vivo(settings: Settings) -> str:
+    """Una llamada real al modelo de la ruta activa; lanza la excepción del proveedor si falla."""
+    return crear_agente_basico(settings).run_sync("Salúdame en una frase.").output.texto
+
+
 def main() -> None:
     settings = Settings()
     print(f"Ruta: MODE={settings.mode} · modelo={describir_modelo(settings)}")
@@ -21,10 +26,9 @@ def main() -> None:
         print("Añade --live para probar una llamada real al modelo.")
         return
     try:
-        r = crear_agente_basico(settings).run_sync("Salúdame en una frase.")
+        print("✅ El modelo respondió:", prueba_en_vivo(settings))
     except Exception as exc:  # red, clave, cuota o modelo no descargado: falla el programa
         sys.exit(f"❌ {type(exc).__name__}: {str(exc)[:200]}")
-    print("✅ El modelo respondió:", r.output.texto)
 
 
 if __name__ == "__main__":

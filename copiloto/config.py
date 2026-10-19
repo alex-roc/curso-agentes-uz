@@ -4,9 +4,22 @@ from pathlib import Path
 from typing import Literal
 
 from pydantic import Field, SecretStr
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic_settings import (
+    BaseSettings,
+    DotEnvSettingsSource,
+    PydanticBaseSettingsSource,
+    SettingsConfigDict,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+class _DotEnvSinVacios(DotEnvSettingsSource):
+    """`.env` sin las líneas vacías (`GEMINI_API_KEY=`): una plantilla sin rellenar no debe
+    tapar una variable que sí exista en el entorno."""
+
+    def __call__(self) -> dict:
+        return {k: v for k, v in super().__call__().items() if v not in ("", None)}
 
 
 class Settings(BaseSettings):
@@ -24,6 +37,28 @@ class Settings(BaseSettings):
     openrouter_api_key: SecretStr = SecretStr("")
     openrouter_model: str = ""
     request_limit: int = Field(default=8, ge=1, le=30)
+
+    @classmethod
+    def settings_customise_sources(
+        cls,
+        settings_cls: type[BaseSettings],
+        init_settings: PydanticBaseSettingsSource,
+        env_settings: PydanticBaseSettingsSource,
+        dotenv_settings: PydanticBaseSettingsSource,
+        file_secret_settings: PydanticBaseSettingsSource,
+    ) -> tuple[PydanticBaseSettingsSource, ...]:
+        """`.env` gana sobre las variables de entorno: lo que configuraste con
+        `copiloto-configurar` es lo que se usa, aunque tu terminal exporte otra clave."""
+        return (
+            init_settings,
+            _DotEnvSinVacios(
+                settings_cls,
+                env_file=dotenv_settings.env_file,
+                env_file_encoding=dotenv_settings.env_file_encoding,
+            ),
+            env_settings,
+            file_secret_settings,
+        )
 
     @property
     def offline(self) -> bool:

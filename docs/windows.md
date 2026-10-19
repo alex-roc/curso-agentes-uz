@@ -17,12 +17,14 @@ Todo funciona nativamente en Windows 10 y 11, sin WSL. Para que **los comandos s
 
 ## 2. Descargar el repositorio e instalar
 
+**Atajo:** con Git Bash, `bash instalar.sh` dentro del repositorio instala uv si falta, hace `uv sync` y lanza el configurador (y desde PowerShell: `powershell -ExecutionPolicy Bypass -File instalar.ps1`). Lo de abajo es el camino manual.
+
 ```bash
 mkdir -p /c/cursos && cd /c/cursos
 git clone https://github.com/alex-roc/curso-agentes-uz.git
 cd curso-agentes-uz
 uv sync
-cp .env.example .env
+uv run copiloto-configurar
 ```
 
 ## 3. Reglas útiles
