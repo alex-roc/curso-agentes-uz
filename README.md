@@ -1,8 +1,5 @@
-# Más allá de los chatbots: materiales para estudiantes
+# Materiales para estudiantes
 
-Repositorio de apoyo del curso **«Más allá de los chatbots: desarrollo de agentes con inteligencia artificial»** (UNIFRANZ Formación Continua) de **Alex Ojeda Copa** · [Lab TecnoSocial](https://labtecnosocial.org).
-
-No es el paquete completo del curso: son **piezas útiles para cada sesión**, que se publican a medida que avanzamos. El hilo conductor es **Mi copiloto**, el asistente personal (ficticio) de Alex: un agente que empezamos como un chat y terminamos desplegado.
 
 ## Calendario
 
