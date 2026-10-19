@@ -23,8 +23,8 @@ ENV = ROOT / ".env"
 EJEMPLO = ROOT / ".env.example"
 OPENROUTER_MODELOS = "https://openrouter.ai/api/v1/models"
 RUTAS = {
-    "gemini": ("MODE=gemini", "GEMINI_API_KEY", "AIza", "https://aistudio.google.com/apikey"),
-    "openrouter": ("MODE=openrouter", "OPENROUTER_API_KEY", "sk-or-", "https://openrouter.ai/keys"),
+    "gemini": ("MODE=gemini", "GEMINI_API_KEY", ("AIza", "AQ."), "https://aistudio.google.com/apikey"),
+    "openrouter": ("MODE=openrouter", "OPENROUTER_API_KEY", ("sk-or-",), "https://openrouter.ai/keys"),
 }
 PRIVACIDAD = (
     "[yellow]Privacidad:[/] con las capas gratuitas de Gemini y OpenRouter lo que escribes viaja "
@@ -71,15 +71,26 @@ def confirmar(texto: str, defecto: bool = True) -> bool:
     return defecto if not r else r[0] in "sy"
 
 
-def pedir_clave(nombre: str, prefijo: str, url: str) -> str:
+def revisar_clave(clave: str, prefijos: tuple[str, ...]) -> bool:
+    """Rechaza lo que claramente no es una clave; un prefijo raro solo avisa (los formatos cambian)."""
+    if len(clave) < 20 or any(c in clave for c in " \"'"):
+        consola.print("[red]Eso no parece una clave: revisa que la copiaste completa, sin comillas ni espacios.[/]")
+        return False
+    if not clave.startswith(prefijos):
+        consola.print(
+            f"[yellow]Aviso: las claves suelen empezar con «{'» o «'.join(prefijos)}». La prueba en vivo dirá si funciona.[/]"
+        )
+    return True
+
+
+def pedir_clave(nombre: str, prefijo: tuple[str, ...], url: str) -> str:
     consola.print(f"Crea una clave gratis en [cyan]{url}[/] y pégala aquí. No se verá al escribir.")
     for _ in range(3):
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")  # getpass avisa si la entrada es una tubería
             clave = getpass.getpass(f"{nombre}: ").strip()
-        if clave.startswith(prefijo):
+        if revisar_clave(clave, prefijo):
             return clave
-        consola.print(f"[red]Esa clave no parece válida: debe empezar con «{prefijo}».[/]")
     sys.exit("No se recibió una clave válida. Vuelve a ejecutar `uv run copiloto-configurar`.")
 
 
@@ -225,8 +236,8 @@ def main() -> None:
             if not interactivo:
                 sys.exit(f"Falta la clave: define COPILOTO_CLAVE o {nombre_clave} en .env.")
             clave = pedir_clave(nombre_clave, prefijo, url)
-        if not clave.startswith(prefijo):
-            sys.exit(f"La clave no parece válida: debe empezar con «{prefijo}».")
+        if not revisar_clave(clave, prefijo):
+            sys.exit("La clave no parece válida. Vuelve a ejecutar `uv run copiloto-configurar`.")
         cambios = {"MODE": ruta, "COURSE_OFFLINE": "0", nombre_clave: clave}
         if ruta == "openrouter":
             cambios["OPENROUTER_MODEL"] = elegir_modelo_openrouter(
