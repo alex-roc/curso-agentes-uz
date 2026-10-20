@@ -2,7 +2,6 @@
 # ruff: noqa: F704
 # %% [markdown]
 # # 0 · Repaso previo: introducción a la IA y Python para agentes
-# **Autoría: Alex Ojeda Copa y Lab TecnoSocial**
 # **Pregunta:** ¿qué tipo de IA vamos a construir y qué necesito dominar de Python para leer sin tropiezos el código de Mi copiloto?
 # **Producto:** seis ejercicios cortos con autocorrección: un clasificador de tipos de IA (parte 1) y, en la parte 2, un dataclass, una función async, un modelo Pydantic con validador, la lectura de un esquema JSON y una configuración con secretos.
 # **Al terminar:** podrás explicar qué hace la temperatura, por qué los tokens importan y en qué se diferencian la IA predictiva, la generativa y la agéntica; además, podrás levantar el entorno con uv, escribir funciones con tipos, esperar varias llamadas a la vez con `asyncio.gather`, validar datos con Pydantic y explicar por qué un secreto nunca se imprime.
