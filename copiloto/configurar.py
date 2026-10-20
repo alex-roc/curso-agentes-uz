@@ -258,8 +258,8 @@ def main() -> None:
     consola.print()
     if ok:
         consola.print(
-            "[bold green]Listo.[/] Abre Jupyter con [bold]uv run jupyter lab[/] y empieza por "
-            "[bold]s1/01_primer_agente.ipynb[/].\nO conversa en la terminal: "
+            "[bold green]Listo.[/] Abre Jupyter con [bold]uv run jupyter lab[/] y sigue los notebooks "
+            "numerados de [bold]s0/[/] (02, 03 y 04) y luego [bold]s1/01_primer_agente.ipynb[/].\nO conversa en la terminal: "
             "[bold]uv run python s1/chat_terminal.py[/]. Para cambiar de ruta, repite "
             "`uv run copiloto-configurar`."
         )

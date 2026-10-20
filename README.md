@@ -7,7 +7,7 @@ Virtual sincrónico, **lunes, miércoles y jueves de 19:00 a 22:00**, del 19 al 
 
 | Sesión | Fecha | Tema | Qué hay aquí |
 |---|---|---|---|
-| 0 | lun 19 oct (inicio) | Repaso previo: IA y Python | [`s0/`](s0/): repaso [`00_repaso.ipynb`](s0/00_repaso.ipynb) y **tarea** [`ejercicios_s0.ipynb`](s0/ejercicios_s0.ipynb) |
+| 0 | lun 19 oct (inicio) | Repaso previo: IA y Python | [`s0/`](s0/): notebooks numerados en orden: [`01_configurar`](s0/01_configurar.ipynb), [`02_repaso`](s0/02_repaso.ipynb), **tarea** [`03_ejercicios`](s0/03_ejercicios.ipynb) y [`04_pydantic_ai_gemini`](s0/04_pydantic_ai_gemini.ipynb) |
 | 1 | lun 19 oct | De los chatbots a los agentes de IA | [`s1/`](s1/): notebook 01 (la tarea), bucle sin framework, terminal de chat |
 | 2 | mié 21 oct | Diseño de agentes, herramientas y acciones | próximamente |
 | 3 | jue 22 oct | Conocimiento, contexto y memoria | próximamente |
@@ -15,9 +15,9 @@ Virtual sincrónico, **lunes, miércoles y jueves de 19:00 a 22:00**, del 19 al 
 | 5 | mié 28 oct | Flujos agénticos y sistemas de varios pasos | próximamente |
 | 6 | jue 29 oct | Despliegue y proyecto final | próximamente |
 
-## Tarea de la S0: `s0/ejercicios_s0.ipynb`
+## Tarea de la S0: notebooks `s0/01` a `s0/04`
 
-Orden recomendado: **configurar** (`bash instalar.sh`) → **repaso** ([`s0/00_repaso.ipynb`](s0/00_repaso.ipynb)) → **ejercicios** ([`s0/ejercicios_s0.ipynb`](s0/ejercicios_s0.ipynb)). Son 13 ejercicios con autocorrección (✅/⏳): IA con código, Python para agentes, Pydantic y la **conexión de Pydantic AI con tu propia clave gratuita de Gemini** ([cómo crearla](docs/gemini.md)). Los ✅ son la evidencia; se revisa al inicio de la sesión 1. Detalles en [`s0/README.md`](s0/README.md).
+Orden recomendado: **configurar** (`bash instalar.sh` o [`01_configurar`](s0/01_configurar.ipynb)) → **repaso** ([`02_repaso`](s0/02_repaso.ipynb)) → **ejercicios** ([`03_ejercicios`](s0/03_ejercicios.ipynb): 12 con autocorrección ✅/⏳, IA con código, Python para agentes y Pydantic) → **Pydantic AI con Gemini** ([`04_pydantic_ai_gemini`](s0/04_pydantic_ai_gemini.ipynb): conecta tu propia clave gratuita, [cómo crearla](docs/gemini.md)). Los ✅ son la evidencia; se revisa al inicio de la sesión 1. Detalles en [`s0/README.md`](s0/README.md).
 
 ## Tarea de la S1: `s1/01_primer_agente.ipynb`
 
@@ -31,12 +31,12 @@ Orden recomendado: **configurar** (`bash instalar.sh`) → **repaso** ([`s0/00_r
    - PowerShell en Windows: `powershell -ExecutionPolicy Bypass -File instalar.ps1`
 3. **Abre los notebooks:** en VS Code (recomendado, ver abajo) o con `uv run jupyter lab`
 
-El único requisito previo es tener internet. Si prefieres hacerlo por partes: `uv sync` y luego `uv run copiloto-configurar` (repítelo cuando quieras cambiar de ruta). Alternativa en Jupyter: [`s0/configurar_y_probar.ipynb`](s0/configurar_y_probar.ipynb). Detalles en la sección siguiente.
+El único requisito previo es tener internet. Si prefieres hacerlo por partes: `uv sync` y luego `uv run copiloto-configurar` (repítelo cuando quieras cambiar de ruta). Alternativa en Jupyter: [`s0/01_configurar.ipynb`](s0/01_configurar.ipynb). Detalles en la sección siguiente.
 
 ## Notebooks en VS Code
 
 1. Instala [VS Code](https://code.visualstudio.com) y abre **la carpeta del repositorio** (Archivo → Abrir carpeta). Acepta instalar las extensiones recomendadas: **Python** y **Jupyter**.
-2. Abre un notebook (por ejemplo `s0/ejercicios_s0.ipynb`) y, arriba a la derecha, pulsa **Select Kernel → Python Environments → `.venv`** (el entorno que creó `instalar.sh`). Si no aparece, ejecuta antes `uv sync` y recarga la ventana.
+2. Abre un notebook (por ejemplo `s0/03_ejercicios.ipynb`) y, arriba a la derecha, pulsa **Select Kernel → Python Environments → `.venv`** (el entorno que creó `instalar.sh`). Si no aparece, ejecuta antes `uv sync` y recarga la ventana.
 3. Ejecuta celda por celda con **Shift+Enter**, o **Run All**. Si cambias `.env` (por ejemplo `COURSE_OFFLINE=0`), pulsa **Restart** en la barra del notebook.
 
 ## Instalar a mano

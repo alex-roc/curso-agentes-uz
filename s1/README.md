@@ -10,7 +10,7 @@ Lunes 19 de octubre de 2026. Todo lo de esta carpeta se ejecuta desde la **raíz
 2. **Mira el bucle de un agente sin framework:** `uv run python s1/bucle_sin_framework.py`. Un solo bucle, dos «modelos»: uno de juguete y un LLM real. Lee el código: son unas 60 líneas.
 3. **Conversa con un agente en la terminal:** `uv run python s1/chat_terminal.py` (añade `--offline` para el modelo simulado). Pregúntale «¿qué hora es?» y «calcula el presupuesto de 3 horas a 40 Bs por hora»: verás cada tool que decide usar.
 4. **La tarea: el notebook [`01_primer_agente.ipynb`](01_primer_agente.ipynb).** Cinco ejercicios con autocorrección y un reto. Hazlo primero con el simulado para entender el recorrido y después con IA real.
-5. **Si te falta repaso,** [`../s0/00_repaso.ipynb`](../s0/00_repaso.ipynb).
+5. **Si te falta repaso,** [`../s0/02_repaso.ipynb`](../s0/02_repaso.ipynb).
 
 ## La tarea: `01_primer_agente.ipynb`
 

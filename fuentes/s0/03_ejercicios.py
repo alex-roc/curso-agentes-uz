@@ -2,11 +2,11 @@
 # ruff: noqa: F704
 # %% [markdown]
 # # Tarea S0 · Ejercicios de IA, Python y Pydantic
-# **Pregunta:** ¿puedo escribir yo mismo el código que sostiene a un agente: estimar costos, controlar el contexto, validar datos y hablar con un modelo real?
-# **Producto:** 13 ejercicios con autocorrección (✅/⏳) y un reto opcional, ambientados en el «Contexto de Alex»: agenda, gastos y el viaje a Tarata. Todos los datos son ficticios y «hoy» es el 2030-05-14.
-# **Al terminar:** habrás practicado tokens, temperatura y ventana de contexto (Parte A); comprensiones, `dataclass`, errores, JSON, asincronía y choques de horario (Parte B); validación con Pydantic y esquema de una tool (Parte C); y habrás conectado Pydantic AI con tu propia clave gratuita de Gemini (Parte D).
-# **Formato:** tarea autónoma de unas 2 a 3 h. Complementa a `00_repaso.ipynb` (no repite sus ejercicios). Se revisa al inicio de la sesión 1.
-# **Cómo se usa:** completa cada celda marcada con `TODO` o `...` y ejecuta la celda `revisar(...)` que sigue. ⏳ significa «aún no», ✅ significa «correcto». Ninguna celda rompe el notebook si no la has hecho. Todo funciona sin red salvo la Parte D y el reto.
+# **Pregunta:** ¿puedo escribir yo mismo el código que sostiene a un agente: estimar costos, controlar el contexto y validar datos?
+# **Producto:** 12 ejercicios con autocorrección (✅/⏳), ambientados en el «Contexto de Alex»: agenda, gastos y el viaje a Tarata. Todos los datos son ficticios y «hoy» es el 2030-05-14.
+# **Al terminar:** habrás practicado tokens, temperatura y ventana de contexto (Parte A); comprensiones, `dataclass`, errores, JSON, asincronía y choques de horario (Parte B); validación con Pydantic y esquema de una tool (Parte C). La conexión con IA real está en `04_pydantic_ai_gemini.ipynb`.
+# **Formato:** tarea autónoma de unas 2 a 3 h. Complementa a `02_repaso.ipynb` (no repite sus ejercicios). Se revisa al inicio de la sesión 1.
+# **Cómo se usa:** completa cada celda marcada con `TODO` o `...` y ejecuta la celda `revisar(...)` que sigue. ⏳ significa «aún no», ✅ significa «correcto». Ninguna celda rompe el notebook si no la has hecho. Todo funciona sin red.
 # %%
 import asyncio
 import json
@@ -321,108 +321,6 @@ print(json.dumps(esquema, ensure_ascii=False, indent=1))
 comprobar("Ejercicio 12 · esquema de la tool", lambda: set(esquema["properties"]) == {"concepto", "monto", "categoria"} and esquema["properties"]["categoria"]["enum"] == ["transporte", "comida", "taller", "otros"], "Debe tener concepto, monto y categoria, esta última con su enum")
 comprobar("Ejercicio 12 · obligatorios", lambda: sorted(respuesta_requeridos) == ["concepto", "monto"], "categoria tiene valor por defecto, así que no es obligatoria")
 # %% [markdown]
-# # Parte D · Conexión con Pydantic AI y tu clave gratuita de Gemini
-# Hasta aquí todo fue sin red. Ahora hablas con un modelo **real**. Necesitas una clave **gratuita** de Google AI Studio (sin tarjeta; no vincules facturación). Si aún no la tienes: `uv run copiloto-configurar --ruta gemini` te la pide sin mostrarla y la guarda en `.env`; o créala en https://aistudio.google.com/apikey. Para usarla pon además `COURSE_OFFLINE=0` en `.env` (el configurador ya lo hace) y reinicia el kernel. **Nunca** pegues la clave en el notebook ni la subas a GitHub. Usa solo datos ficticios.
-# %% [markdown]
-# ## Ejercicio 13 · Tu primer agente con Gemini
-# **Paso 1.** Comprueba la configuración **sin imprimir la clave** (solo si existe y cuántos caracteres tiene). Ejecuta la celda tal cual.
-# %%
-from pydantic_ai import Agent
-from pydantic_ai.exceptions import ModelHTTPError
-from pydantic_ai.models.google import GoogleModel
-from pydantic_ai.providers.google import GoogleProvider
-
-from copiloto.config import ROOT, Settings
-
-ajustes = Settings(_env_file=ROOT / ".env")
-clave = ajustes.gemini_api_key.get_secret_value()
-print(f"MODE={ajustes.mode} · modelo={ajustes.gemini_model} · simulado={OFFLINE}")
-print(f"GEMINI_API_KEY: {'presente, ' + str(len(clave)) + ' caracteres' if clave else 'NO está en .env'}")
-if not clave:
-    print("→ Ejecuta `uv run copiloto-configurar --ruta gemini` o crea la clave en https://aistudio.google.com/apikey")
-if OFFLINE:
-    print("→ Estás en modo simulado: pon COURSE_OFFLINE=0 en .env y reinicia el kernel para la parte con red.")
-LISTO_PARA_RED = bool(clave) and not OFFLINE
-# %% [markdown]
-# **Paso 2.** Crea el modelo a mano: `GoogleModel(nombre, provider=GoogleProvider(api_key=...))`, y con él un `Agent` con tus propias instrucciones (rol, español, no inventar). Escribe `crear_agente_gemini`. Esta parte no usa red, así que se autocorrige siempre.
-# %%
-def crear_agente_gemini(nombre_modelo: str, instrucciones: str, api_key: str) -> Agent:
-    # TODO: GoogleModel(nombre_modelo, provider=GoogleProvider(api_key=api_key)) y un Agent con instructions
-    ...
-
-
-MIS_INSTRUCCIONES = ""  # TODO: escribe tus instrucciones (rol, español, no inventes datos)
-# %%
-comprobar("Ejercicio 13 · crear el agente", lambda: isinstance(crear_agente_gemini(ajustes.gemini_model, "Hola", clave or "clave-de-prueba"), Agent) and MIS_INSTRUCCIONES.strip() != "", "crear_agente_gemini debe devolver un Agent y MIS_INSTRUCCIONES no puede estar vacía")
-# %% [markdown]
-# **Paso 3.** Los errores de red son normales (cuota agotada, clave mal copiada). Completa `mensaje_error`: para un `ModelHTTPError` con `status_code` 429 debe hablar de la **cuota** y sugerir esperar o cambiar de modelo; con 400, 401 o 403, de la **clave**; con cualquier otro, mostrar el código. También se autocorrige sin red.
-# %%
-def mensaje_error(exc: ModelHTTPError) -> str:
-    # TODO: 429 -> cuota; 400, 401 o 403 -> clave; otro -> el código
-    return "TODO"
-
-
-async def preguntar(agente: Agent, texto: str):
-    """Ejecuta el agente; ante un error HTTP del proveedor imprime un mensaje amable y devuelve None."""
-    try:
-        return await agente.run(texto)
-    except ModelHTTPError as exc:
-        print("⚠️", mensaje_error(exc))
-        return None
-# %%
-comprobar("Ejercicio 13 · errores amables", lambda: "cuota" in mensaje_error(ModelHTTPError(429, "m")).lower() and "clave" in mensaje_error(ModelHTTPError(403, "m")).lower() and "clave" in mensaje_error(ModelHTTPError(400, "m")).lower() and "500" in mensaje_error(ModelHTTPError(500, "m")), "429 debe mencionar la cuota; 400/403, la clave; otros, el código")
-# %% [markdown]
-# **Paso 4.** Ejecuta de verdad: `r = await agente.run(...)`; muestra `r.output` y `r.usage`. Si falta la clave o estás en modo simulado, la celda te dice qué hacer y no rompe nada.
-# %%
-r = None
-if LISTO_PARA_RED:
-    agente_gemini = crear_agente_gemini(ajustes.gemini_model, MIS_INSTRUCCIONES, clave)
-    r = await preguntar(agente_gemini, "En una frase: ¿qué debería llevar Alex a un taller en Tarata?")
-    if r:
-        print(r.output)
-        print(r.usage)
-else:
-    print("Sin red: revisa el Paso 1 (clave y COURSE_OFFLINE=0).")
-# %%
-comprobar("Ejercicio 13 · respuesta real de Gemini", lambda: r is not None and bool(r.output.strip()) and r.usage.requests >= 1, "Sin respuesta real: revisa la clave (Paso 1), COURSE_OFFLINE=0 y reinicia el kernel; si viste 429, espera un minuto")
-# %% [markdown]
-# **Paso 5. Compara dos modelos.** Misma pregunta, mismas instrucciones, dos modelos. Anota los tokens de entrada y salida de cada uno en `uso` (`r.usage.input_tokens`, `r.usage.output_tokens`). Luego escribe en `conclusion` una frase: ¿cuál gastó más tokens y por qué crees que fue? (Si un modelo da 429, espera y repite; si no existe para tu cuenta, cambia el nombre por otro modelo gratuito.)
-# %%
-MODELOS = ["gemini-3.5-flash-lite", "gemini-3.8-flash"]
-PREGUNTA = "Resume en tres puntos qué es un agente de IA."
-uso: dict[str, tuple[int, int]] = {}
-if LISTO_PARA_RED:
-    for nombre in MODELOS:
-        agente = crear_agente_gemini(nombre, MIS_INSTRUCCIONES, clave)
-        res = await preguntar(agente, PREGUNTA)
-        if res:
-            pass  # TODO: guarda uso[nombre] = (tokens de entrada, tokens de salida)
-    print(uso)
-conclusion = ""  # TODO
-# %%
-comprobar("Ejercicio 13 · comparación de modelos", lambda: len(uso) == 2 and all(i > 0 and o > 0 for i, o in uso.values()) and len(conclusion.split()) >= 5, "Necesitas los tokens de los dos modelos (con red) y una conclusión de al menos 5 palabras")
-# %% [markdown]
-# # Reto final (opcional, con IA real) · Del texto libre a un `Gasto`
-# Pide al modelo configurado que convierta una frase libre en un `Gasto` validado usando `output_type`. Se ejecuta solo con IA real (`COURSE_OFFLINE=0`). Escribe tus instrucciones: dile cuál es «hoy» para que entienda «ayer».
-# %%
-from copiloto.agente import esquema_salida
-from copiloto.config import crear_modelo
-
-INSTRUCCIONES_RETO = ""  # TODO: extrae el gasto de la frase; indica la fecha de hoy y las categorías
-gasto_reto = None
-if not OFFLINE and clave:
-    agente_reto = Agent(crear_modelo(settings, OFFLINE), instructions=INSTRUCCIONES_RETO, output_type=esquema_salida(settings, OFFLINE, tipo=Gasto))
-    try:
-        res = await agente_reto.run("Ayer gasté 35 Bs en micro a Quillacollo")
-        gasto_reto = res.output
-        print(gasto_reto)
-    except ModelHTTPError as exc:
-        print("⚠️", mensaje_error(exc))
-else:
-    print("Reto omitido: requiere IA real (ver el inicio de la Parte D).")
-# %%
-revisar("Reto · gasto estructurado", lambda: gasto_reto is not None and gasto_reto.monto == 35 and gasto_reto.categoria == "transporte" and gasto_reto.fecha == date(2030, 5, 13), "Con IA real debe salir monto 35, categoría transporte y fecha 2030-05-13 (opcional)")
-# %% [markdown]
 # # Recuento y autoevaluación
 # %%
 hechos = sum(RESULTADOS.values())
@@ -438,6 +336,7 @@ print("⏳ pendientes:", [n for n, ok in RESULTADOS.items() if not ok] or "ningu
 # %% [markdown]
 # ## Cómo entregar
 # 1. Reinicia el kernel y ejecuta **todo** el notebook de arriba abajo (*Kernel → Restart and Run All*).
-# 2. Comprueba el recuento final: lo ideal es ver ✅ en todos los ejercicios 1 a 13 (el reto es opcional).
+# 2. Comprueba el recuento final: lo ideal es ver ✅ en todos los ejercicios 1 a 12.
 # 3. Guarda el notebook **con las salidas visibles** y súbelo donde indique el aula virtual (o muéstralo al inicio de la sesión 1: se revisa ahí). **Antes de subirlo**, comprueba que no se imprimió ninguna clave.
 # 4. Si algo no sale, entrega igual: cuéntanos en una celda de texto dónde te trabaste. Eso orienta el repaso de 10 minutos.
+# 5. Sigue con `04_pydantic_ai_gemini.ipynb`: conecta Pydantic AI con tu clave gratuita de Gemini.

@@ -17,7 +17,7 @@ from copiloto.practica import preparar, revisar, ver_mensajes
 settings, OFFLINE = preparar()
 # %% [markdown]
 # ## 1 · ¿Con qué modelo trabajo hoy?
-# El mismo agente corre con cuatro «motores»; solo cambia una línea de `.env` (repasa `s0/00_repaso.ipynb` si «token» o «temperatura» no te suenan):
+# El mismo agente corre con cuatro «motores»; solo cambia una línea de `.env` (repasa `s0/02_repaso.ipynb` si «token» o «temperatura» no te suenan):
 #
 # | Ruta | `.env` | Datos |
 # |---|---|---|

@@ -1,17 +1,21 @@
 # Sesión 0 · Repaso previo (IA y Python)
 
-Todo se ejecuta desde la **raíz del repositorio** con `uv run`. Orden recomendado:
+Todo se ejecuta desde la **raíz del repositorio** con `uv run`. Los notebooks van **numerados en el orden de trabajo**:
 
-1. **Configurar:** `bash instalar.sh` (o `instalar.ps1`). Te guía para elegir ruta de modelo y guardar tu clave en `.env`.
-2. **Repasar:** [`00_repaso.ipynb`](00_repaso.ipynb), seis ejercicios cortos (IA y Python), sin red.
-3. **La tarea:** [`ejercicios_s0.ipynb`](ejercicios_s0.ipynb).
+1. **Configurar:** `bash instalar.sh` (o `instalar.ps1`), o [`01_configurar.ipynb`](01_configurar.ipynb). Te guía para elegir ruta de modelo y guardar tu clave en `.env`.
+2. **Repasar:** [`02_repaso.ipynb`](02_repaso.ipynb), seis ejercicios cortos (IA y Python), sin red.
+3. **Ejercicios:** [`03_ejercicios.ipynb`](03_ejercicios.ipynb), doce ejercicios con autocorrección, sin red.
+4. **Pydantic AI con Gemini:** [`04_pydantic_ai_gemini.ipynb`](04_pydantic_ai_gemini.ipynb), con tu clave gratuita.
 
-## Tarea de la S0: `ejercicios_s0.ipynb`
+Ábrelos en VS Code (kernel `.venv`, ver el README principal) o con `uv run jupyter lab s0/03_ejercicios.ipynb`.
 
-Ábrelo en VS Code (kernel `.venv`, ver el README principal) o con `uv run jupyter lab s0/ejercicios_s0.ipynb`.
+## Notebook 03 · Ejercicios
 
-Trece ejercicios con autocorrección (✅/⏳) en cuatro partes: **A** IA con código (tokens y costo, temperatura, tipos de IA, ventana de contexto), **B** Python (comprensiones, `dataclass`, errores, JSON y despachador con lista blanca, choques de horario, `asyncio.gather`), **C** Pydantic (validación y esquema de una tool) y **D** conexión de Pydantic AI con **tu clave gratuita de Gemini** (sin tarjeta, en https://aistudio.google.com/apikey), más un reto opcional con IA real.
+Doce ejercicios con autocorrección (✅/⏳) en tres partes: **A** IA con código (tokens y costo, temperatura, tipos de IA, ventana de contexto), **B** Python (comprensiones, `dataclass`, errores, JSON y despachador con lista blanca, choques de horario, `asyncio.gather`) y **C** Pydantic (validación y esquema de una tool). Todo funciona **sin red**.
 
-- Todo funciona **sin red**, salvo la parte D y el reto. Para esas, tu `.env` debe tener `GEMINI_API_KEY` y `COURSE_OFFLINE=0` (y reiniciar el kernel). `uv run copiloto-configurar --ruta gemini` lo deja listo.
+## Notebook 04 · Pydantic AI con tu clave de Gemini
+
+Cinco ejercicios (comprobar la configuración, crear el agente, errores amables, una respuesta real y comparar dos modelos) más un reto opcional (del texto libre a un `Gasto`). Necesita una clave gratuita de Gemini (sin tarjeta, en https://aistudio.google.com/apikey): tu `.env` debe tener `GEMINI_API_KEY` y `COURSE_OFFLINE=0` (y reiniciar el kernel). `uv run copiloto-configurar --ruta gemini` lo deja listo.
+
 - Usa solo datos ficticios y **no imprimas ni subas tu clave**.
-- **Entrega:** *Restart and Run All*, guarda el notebook con las salidas (en VS Code: **Restart** y luego **Run All**) y muestra los ✅ al inicio de la sesión 1.
+- **Entrega:** *Restart and Run All*, guarda cada notebook con las salidas (en VS Code: **Restart** y luego **Run All**) y muestra los ✅ al inicio de la sesión 1.
