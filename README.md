@@ -29,9 +29,15 @@ Orden recomendado: **configurar** (`bash instalar.sh`) → **repaso** ([`s0/00_r
 2. **Ejecuta el instalador** (instala `uv`, Python 3.12 y las dependencias, y te guía para elegir y probar tu modelo):
    - macOS, Linux o Git Bash en Windows: `bash instalar.sh`
    - PowerShell en Windows: `powershell -ExecutionPolicy Bypass -File instalar.ps1`
-3. **Abre los notebooks:** `uv run jupyter lab`
+3. **Abre los notebooks:** en VS Code (recomendado, ver abajo) o con `uv run jupyter lab`
 
 El único requisito previo es tener internet. Si prefieres hacerlo por partes: `uv sync` y luego `uv run copiloto-configurar` (repítelo cuando quieras cambiar de ruta). Alternativa en Jupyter: [`s0/configurar_y_probar.ipynb`](s0/configurar_y_probar.ipynb). Detalles en la sección siguiente.
+
+## Notebooks en VS Code
+
+1. Instala [VS Code](https://code.visualstudio.com) y abre **la carpeta del repositorio** (Archivo → Abrir carpeta). Acepta instalar las extensiones recomendadas: **Python** y **Jupyter**.
+2. Abre un notebook (por ejemplo `s0/ejercicios_s0.ipynb`) y, arriba a la derecha, pulsa **Select Kernel → Python Environments → `.venv`** (el entorno que creó `instalar.sh`). Si no aparece, ejecuta antes `uv sync` y recarga la ventana.
+3. Ejecuta celda por celda con **Shift+Enter**, o **Run All**. Si cambias `.env` (por ejemplo `COURSE_OFFLINE=0`), pulsa **Restart** en la barra del notebook.
 
 ## Instalar a mano
 
