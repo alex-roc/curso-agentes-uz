@@ -2,7 +2,6 @@
 # ruff: noqa: F704
 # %% [markdown]
 # # 1 · De los chatbots a los agentes de IA
-# **Autoría: Alex Ojeda Copa y Lab TecnoSocial**
 # **Pregunta:** ¿qué tiene un agente que no tiene un chatbot, y qué parte es del modelo y qué parte es de nuestro código?
 # **Producto:** el bucle de un agente escrito desde cero (con un «modelo» de juguete y con un LLM real) y el primer Mi copiloto en Pydantic AI, con instrucciones y salida estructurada.
 # **Al terminar:** podrás explicar el ciclo pedir → ejecutar → observar, escribir el despachador de tools de un agente, definir un `output_type` propio, comparar respuesta libre y tipada midiendo el uso, y cambiar de modelo sin tocar el código del agente.
