@@ -2,7 +2,6 @@
 # ruff: noqa: F704
 # %% [markdown]
 # # Tarea S0 · Ejercicios de IA, Python y Pydantic
-# **Autoría: Alex Ojeda Copa y Lab TecnoSocial**
 # **Pregunta:** ¿puedo escribir yo mismo el código que sostiene a un agente: estimar costos, controlar el contexto, validar datos y hablar con un modelo real?
 # **Producto:** 13 ejercicios con autocorrección (✅/⏳) y un reto opcional, ambientados en el «Contexto de Alex»: agenda, gastos y el viaje a Tarata. Todos los datos son ficticios y «hoy» es el 2030-05-14.
 # **Al terminar:** habrás practicado tokens, temperatura y ventana de contexto (Parte A); comprensiones, `dataclass`, errores, JSON, asincronía y choques de horario (Parte B); validación con Pydantic y esquema de una tool (Parte C); y habrás conectado Pydantic AI con tu propia clave gratuita de Gemini (Parte D).

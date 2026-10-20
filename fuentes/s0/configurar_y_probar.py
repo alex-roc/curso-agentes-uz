@@ -1,7 +1,6 @@
 # Fuente de notebook Jupyter; regenerar con fuentes/generar_notebooks.py.
 # %% [markdown]
 # # 0 · Configurar y probar tu entorno
-# **Autoría: Alex Ojeda Copa y Lab TecnoSocial**
 # **Pregunta:** ¿está todo listo para trabajar: Python, paquetes, ruta de modelo y una respuesta real?
 # **Producto:** un diagnóstico de tu entorno y una petición de prueba al modelo.
 # **Formato:** opcional y de unos 5 min. Si prefieres la terminal, `bash instalar.sh` (o `instalar.ps1` en PowerShell) hace lo mismo con preguntas guiadas.
