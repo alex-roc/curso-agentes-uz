@@ -5,6 +5,7 @@ Interactivo por defecto. Para automatizar (o probar): `--ruta gemini|openrouter|
 """
 
 import argparse
+import asyncio
 import getpass
 import os
 import shutil
@@ -163,7 +164,7 @@ AYUDA_ERRORES = (
 def probar(settings: Settings) -> bool:
     consola.print(f"Probando el modelo [bold]{describir_modelo(settings)}[/] (puede tardar)…")
     try:
-        texto = prueba_en_vivo(settings)
+        texto = asyncio.run(prueba_en_vivo(settings))
     except Exception as exc:
         detalle = f"{type(exc).__name__}: {exc}"
         consola.print(f"[red]✗ Falló la prueba:[/] {detalle[:200]}")

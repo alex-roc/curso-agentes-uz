@@ -78,7 +78,6 @@ copiloto/    módulo pequeño compartido: configuración, configurador, modelo s
 s0/          sesión 0: repaso y tarea de ejercicios (IA, Python, Pydantic, Gemini)
 s1/          sesión 1: notebook de la tarea, bucle sin framework, terminal de chat
 docs/        guías de instalación y de cada ruta de modelo
-fuentes/     para quien mantiene el repo: fuentes .py de los notebooks y su generador
 ```
 
 ## Licencias

@@ -1,14 +1,20 @@
 """Diagnóstico: `uv run copiloto-doctor` (config) y `uv run copiloto-doctor --live` (llama al modelo)."""
 
+import asyncio
 import sys
 
 from .agente import crear_agente_basico
 from .config import Settings, describir_modelo, validar_ruta
 
 
-def prueba_en_vivo(settings: Settings) -> str:
-    """Una llamada real al modelo de la ruta activa; lanza la excepción del proveedor si falla."""
-    return crear_agente_basico(settings).run_sync("Salúdame en una frase.").output.texto
+async def prueba_en_vivo(settings: Settings) -> str:
+    """Una llamada real al modelo de la ruta activa; lanza la excepción del proveedor si falla.
+
+    Es async para que funcione en un notebook (`await prueba_en_vivo(s)`), donde ya hay un
+    bucle de eventos; desde un script se llama con `asyncio.run(...)`.
+    """
+    resultado = await crear_agente_basico(settings).run("Salúdame en una frase.")
+    return resultado.output.texto
 
 
 def main() -> None:
@@ -26,7 +32,7 @@ def main() -> None:
         print("Añade --live para probar una llamada real al modelo.")
         return
     try:
-        print("✅ El modelo respondió:", prueba_en_vivo(settings))
+        print("✅ El modelo respondió:", asyncio.run(prueba_en_vivo(settings)))
     except Exception as exc:  # red, clave, cuota o modelo no descargado: falla el programa
         sys.exit(f"❌ {type(exc).__name__}: {str(exc)[:200]}")
 
