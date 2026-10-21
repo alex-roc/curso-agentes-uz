@@ -85,6 +85,3 @@ fuentes/     para quien mantiene el repo: fuentes .py de los notebooks y su gene
 
 El **código** es [MIT](LICENSE); los **textos y notebooks** son [CC BY 4.0](LICENSE-MATERIALES.md): puedes reutilizarlos citando la autoría. Todos los datos de práctica son ficticios.
 
-## Para quien mantiene el repositorio
-
-Los notebooks se escriben en `fuentes/sN/*.py` (celdas con `# %%`) y se generan sin salidas con `python3 fuentes/generar_notebooks.py`. Edita siempre la fuente.
