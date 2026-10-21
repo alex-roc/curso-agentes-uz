@@ -1,6 +1,6 @@
 """El agente de Mi copiloto (nace en la sesión 1). Versión para completar: busca los `# TODO`.
 
-Es lo que el docente arma en vivo al final de la clase (acto 3); tú completas las dos piezas que faltan.
+Es lo que el docente muestra en la Demo 5; tú completas las dos piezas que faltan (Ejercicio 7).
 
 Cuatro piezas, todas de Pydantic AI a la vista:
 
@@ -191,9 +191,9 @@ def crear_evento(ctx: RunContext[Deps], titulo: str, fecha: str, inicio: str, fi
         inicio: Hora de inicio HH:MM (24 horas).
         fin: Hora de fin HH:MM (24 horas).
     """
-    # TODO (notebook 02, sección 5): guarda el evento en ctx.deps.eventos_nuevos y devuelve un dict
+    # TODO Ejercicio 7 (notebook 02): guarda el evento en ctx.deps.eventos_nuevos y devuelve un dict
     # con los datos del evento y una `fuente` (p. ej. f"agenda:{fecha}").
-    raise NotImplementedError("Completa crear_evento")
+    raise NotImplementedError("Completa crear_evento (Ejercicio 7)")
 
 
 # 6. El agente -----------------------------------------------------------------------------------
@@ -217,7 +217,7 @@ def crear_agente(modelo) -> Agent[Deps, Respuesta | DeferredToolRequests]:
         # Dos salidas posibles: la respuesta final o una acción esperando aprobación.
         output_type=[salida, DeferredToolRequests],
         instructions=[INSTRUCCIONES, fecha_de_hoy],
-        # TODO (notebook 02, sección 5): registra las cuatro tools. Las de lectura van tal cual;
+        # TODO Ejercicio 7 (notebook 02): registra las cuatro tools. Las de lectura van tal cual;
         # crear_evento escribe, así que va envuelta: Tool(crear_evento, requires_approval=True).
         tools=[],
         retries=2,

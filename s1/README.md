@@ -4,26 +4,28 @@ Miércoles 21 de octubre de 2026. Programas tu agente con **Pydantic AI directam
 
 ## Cómo se conecta con la clase
 
-La clase tiene tres actos; en cada uno el docente muestra una idea y la hace en vivo, y tú la repites en tu notebook.
+En clase hay cinco demos numeradas (**Demo 1** a **Demo 5**) y luego 60 minutos de **Ejercicios 1 a 9**. Los ejercicios no repiten la demo: cada uno cambia algo (otro dato, otra tool, un diseño malo que mejorar, algo que medir) y dice en qué demo se apoya.
 
-| Acto | Qué se ve en clase | Lo repites en |
-|---|---|---|
-| Arranque | caso Mi copiloto, rutas de modelo, utilidades | paso 1 de abajo: `python -m utilidades.configurar` |
-| 1 · ¿Qué es un agente? | chatbot, flujo y agente; anatomía; el bucle ReAct | `bucle_sin_framework.py` y notebook 01, secciones 2 a 2.1 |
-| 2 · Lo mismo con Pydantic AI | frameworks, elegir modelo, salida estructurada, errores | notebook 01, secciones 2.2 a 7, y ejercicios 1 y 2 |
-| 3 · Darle manos: herramientas | usar, preguntar o negarse; tools, `Deps`, `ModelRetry`; leer frente a escribir | notebook 02, secciones 1 a 5, y ejercicios 3 a 6 |
-| Cierre | `mi_copiloto/agente.py` y la terminal | tu `s1/mi_copiloto/` (dos `# TODO`) y `python -m mi_copiloto.chat` |
-
-Tu `mi_copiloto/agente.py` es el que el docente arma en vivo al final de la clase.
+| Ejercicio | Dónde | Se apoya en | Nivel |
+|---|---|---|---|
+| 1 · Tu propio `output_type`: `PlanDia` | `01_primer_agente` | Demo 3 | básico |
+| 2 · Un despachador que sobrevive a los errores | `01_primer_agente` | Demo 2 | medio |
+| 3 · Una función pura y una tool nueva | `02_herramientas` | Demo 4 | medio |
+| 4 · Rediseña una tool mal hecha | `02_herramientas` | Demo 4 | medio |
+| 5 · Un error que enseña: `ModelRetry` | `02_herramientas` | Demo 4 | básico |
+| 6 · Sin permiso no hay acción | `02_herramientas` | Demo 5 | medio |
+| 7 · Lleva tu agente a `mi_copiloto/` | `mi_copiloto/agente.py` (se comprueba al final del 02) | Demo 5 | básico |
+| 8 · Tu regla: usar, preguntar o negarse | `03_ia_real` (IA real, opcional) | Demo 4 | medio |
+| 9 · Reto: mismo pedido, dos modelos | `03_ia_real` (IA real, opcional) | Demos 1 y 3 | reto |
 
 ## Qué hacer, en orden
 
 1. **Elige tu ruta de modelo** (5 a 15 min; cualquiera sirve, y sin ninguna usas el simulado): `uv run python -m utilidades.configurar` y luego `uv run python -m utilidades.doctor --live`. Guías: [Gemini](../docs/gemini.md) (la más rápida), [OpenRouter](../docs/openrouter.md), [Ollama](../docs/ollama.md) con `gemma4:e2b`.
 2. **Mira el bucle de un agente sin framework:** `cd s1` y `uv run python bucle_sin_framework.py` (añade `--sin-llm` para no usar red).
-3. **[`01_primer_agente.ipynb`](01_primer_agente.ipynb)** (~20 min): el bucle, el primer agente con Pydantic AI y salida tipada. Ejercicios 1 (`PlanDia`) y 2 (despachador seguro).
-4. **[`02_herramientas.ipynb`](02_herramientas.ipynb)** (~40 min): tools, `ModelRetry`, una API pública y aprobación. Ejercicios 3 (`minutos_libres`), 4 (rediseñar una tool), 5 (`ModelRetry`) y 6 (sin permiso no hay acción). Al final completas tu `mi_copiloto/agente.py`.
+3. **[`01_primer_agente.ipynb`](01_primer_agente.ipynb)** (~20 min): el bucle, el primer agente con Pydantic AI y salida tipada. Ejercicios 1 y 2.
+4. **[`02_herramientas.ipynb`](02_herramientas.ipynb)** (~40 min): tools, `ModelRetry`, una API pública y aprobación. Ejercicios 3 a 6, y el 7: completar tu `mi_copiloto/agente.py`.
 5. **Conversa con tu agente:** desde `s1/`, `uv run python -m mi_copiloto.chat` (añade `--simulado` si no tienes modelo y `--modo gemini` para elegir ruta). Pide «¿Qué tengo el 2030-05-14?» y «Agenda “Llamada con Ana” el 2030-05-16 de 15:00 a 16:00»: la acción espera tu `[s/N]`. `/borrar` y `/salir` funcionan dentro.
-6. **Opcional, con IA real: [`03_ia_real.ipynb`](03_ia_real.ipynb)** (~20 min): usar una tool, preguntar o negarse, y el reto de comparar dos modelos.
+6. **Opcional, con IA real: [`03_ia_real.ipynb`](03_ia_real.ipynb)** (~20 min): Ejercicios 8 (usar, preguntar o negarse) y 9 (reto: comparar dos modelos).
 
 Abre la carpeta del repo en VS Code (extensiones Python y Jupyter), abre `s1/01_primer_agente.ipynb`, elige el kernel `.venv` (*Select Kernel → Python Environments*) y ejecuta con Shift+Enter o *Run All*.
 
@@ -36,10 +38,10 @@ Abre la carpeta del repo en VS Code (extensiones Python y Jupyter), abre `s1/01_
 
 | Archivo | Qué es |
 |---|---|
-| `01_primer_agente.ipynb` | el bucle y el primer agente (ejercicios 1 y 2) |
-| `02_herramientas.ipynb` | herramientas y aprobación (ejercicios 3 a 6) |
-| `03_ia_real.ipynb` | opcional, con IA real: decidir y comparar modelos |
-| `mi_copiloto/agente.py` | tu agente: `Respuesta`, instrucciones, `Deps`, tools y `crear_agente`. Tiene dos `# TODO` que completas con el notebook 02 |
+| `01_primer_agente.ipynb` | el bucle y el primer agente (Ejercicios 1 y 2) |
+| `02_herramientas.ipynb` | herramientas y aprobación (Ejercicios 3 a 7) |
+| `03_ia_real.ipynb` | opcional, con IA real: Ejercicios 8 y 9 |
+| `mi_copiloto/agente.py` | tu agente: `Respuesta`, instrucciones, `Deps`, tools y `crear_agente`. Tiene dos `# TODO Ejercicio 7` |
 | `mi_copiloto/chat.py` | la terminal: historial, trazas de tools y `[s/N]` para aprobar |
 | `mi_copiloto/datos/` | agenda, correo y clima de práctica (ficticios o respuestas congeladas) |
 | `bucle_sin_framework.py` | el bucle de un agente con una interfaz de modelo (juguete o LLM real por HTTP) |
@@ -50,7 +52,7 @@ Abre la carpeta del repo en VS Code (extensiones Python y Jupyter), abre `s1/01_
 |---|---|
 | El notebook dice «simulado» y quiero IA real | `COURSE_OFFLINE=0` en `.env` y reinicia el kernel |
 | `ModuleNotFoundError: mi_copiloto` | Abre el notebook desde su carpeta (`s1/`) con el kernel del `.venv`; en la terminal, haz `cd s1` primero |
-| `NotImplementedError: Completa crear_evento` | Te falta un `# TODO` de `mi_copiloto/agente.py` (notebook 02, sección 5) |
+| `NotImplementedError: Completa crear_evento (Ejercicio 7)` | Te falta un `# TODO Ejercicio 7` de `mi_copiloto/agente.py` |
 | `ConnectError` o «conexión rechazada» | Ollama no está activo ([ollama.md](../docs/ollama.md)) |
 | `429` | Cuota gratuita agotada: espera un minuto, cambia `GEMINI_MODEL` o usa otra ruta |
 | 401 o 403 | Clave mal copiada: revisa `.env` |
