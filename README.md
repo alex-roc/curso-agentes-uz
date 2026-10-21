@@ -7,7 +7,7 @@ Virtual sincrónico, **lunes, miércoles y jueves de 19:00 a 22:00**, del 19 al 
 
 | Sesión | Fecha | Tema | Qué hay aquí |
 |---|---|---|---|
-| 0 | lun 19 oct (inicio) | Repaso previo: IA y Python | [`s0/`](s0/): notebooks numerados en orden: [`01_configurar`](s0/01_configurar.ipynb), [`02_repaso`](s0/02_repaso.ipynb), **tarea** [`03_ejercicios`](s0/03_ejercicios.ipynb) y [`04_pydantic_ai_gemini`](s0/04_pydantic_ai_gemini.ipynb) |
+| 0 | lun 19 oct (inicio) | Repaso previo: IA y Python | [`s0/`](s0/), **tarea** [`03_ejercicios`](s0/03_ejercicios.ipynb) y [`04_pydantic_ai_gemini`](s0/04_pydantic_ai_gemini.ipynb) |
 | 1 | mié 21 oct | De los chatbots a los agentes; herramientas, APIs y acciones | [`s1/`](s1/): notebook 01, bucle sin framework, terminal de chat (hoy se amplía con la parte de herramientas) |
 | 2 | jue 22 oct | Conocimiento, contexto y memoria | próximamente |
 | 3 | lun 26 oct | Interoperabilidad, automatización y MCP | próximamente |
