@@ -4,28 +4,24 @@ Miércoles 21 de octubre de 2026. Programas tu agente con **Pydantic AI directam
 
 ## Cómo se conecta con la clase
 
-En clase hay cinco demos numeradas (**Demo 1** a **Demo 5**) y luego 60 minutos de **Ejercicios 1 a 9**. Los ejercicios no repiten la demo: cada uno cambia algo (otro dato, otra tool, un diseño malo que mejorar, algo que medir) y dice en qué demo se apoya.
+En clase hay cuatro demos numeradas (**Demo 1** a **Demo 4**) y luego unos 60 minutos de **Ejercicios 1 a 5** (más un reto opcional con IA real). Cada notebook empieza con «ejemplos mínimos», el mismo código de la demo explicado paso a paso; los ejercicios no lo repiten: cada uno es una variación (otro dato, otra tool, rechazar además de aprobar) y dice en qué demo se apoya.
 
 | Ejercicio | Dónde | Se apoya en | Nivel |
 |---|---|---|---|
-| 1 · Tu propio `output_type`: `PlanDia` | `01_primer_agente` | Demo 3 | básico |
-| 2 · Un despachador que sobrevive a los errores | `01_primer_agente` | Demo 2 | medio |
-| 3 · Una función pura y una tool nueva | `02_herramientas` | Demo 4 | medio |
-| 4 · Rediseña una tool mal hecha | `02_herramientas` | Demo 4 | medio |
-| 5 · Un error que enseña: `ModelRetry` | `02_herramientas` | Demo 4 | básico |
-| 6 · Sin permiso no hay acción | `02_herramientas` | Demo 5 | medio |
-| 7 · Lleva tu agente a `mi_copiloto/` | `mi_copiloto/agente.py` (se comprueba al final del 02) | Demo 5 | básico |
-| 8 · Tu regla: usar, preguntar o negarse | `03_ia_real` (IA real, opcional) | Demo 4 | medio |
-| 9 · Reto: mismo pedido, dos modelos | `03_ia_real` (IA real, opcional) | Demos 1 y 3 | reto |
+| 1 · Extrae una tarea (`Tarea` con `Literal`) | `01_primer_agente` | Demo 1 · Salida tipada | básico |
+| 2 · Tu primera tool (`minutos_entre`) | `02_herramientas` | Demo 2 · Primera tool | básico |
+| 3 · Una tool que lee datos (`buscar_correos` con `deps`) | `02_herramientas` | Demo 3 · Tool con datos | medio |
+| 4 · Sin permiso no hay acción (rechazar y aprobar) | `02_herramientas` | Demo 4 · Escribir con permiso | medio |
+| 5 · Completa tu copiloto | `mi_copiloto/agente.py` (se comprueba al final del 02) | Demo 4 | básico |
+| Reto · La misma pregunta, dos modelos | `03_ia_real` (IA real, opcional) | Demo 2 | reto |
 
 ## Qué hacer, en orden
 
-1. **Elige tu ruta de modelo** (5 a 15 min; cualquiera sirve, y sin ninguna usas el simulado): `uv run python -m utilidades.configurar` y luego `uv run python -m utilidades.doctor --live`. Guías: [Gemini](../docs/gemini.md) (la más rápida), [OpenRouter](../docs/openrouter.md), [Ollama](../docs/ollama.md) con `gemma4:e2b`.
-2. **Mira el bucle de un agente sin framework:** `cd s1` y `uv run python bucle_sin_framework.py` (añade `--sin-llm` para no usar red).
-3. **[`01_primer_agente.ipynb`](01_primer_agente.ipynb)** (~20 min): el bucle, el primer agente con Pydantic AI y salida tipada. Ejercicios 1 y 2.
-4. **[`02_herramientas.ipynb`](02_herramientas.ipynb)** (~40 min): tools, `ModelRetry`, una API pública y aprobación. Ejercicios 3 a 6, y el 7: completar tu `mi_copiloto/agente.py`.
-5. **Conversa con tu agente:** desde `s1/`, `uv run python -m mi_copiloto.chat` (añade `--simulado` si no tienes modelo y `--modo gemini` para elegir ruta). Pide «¿Qué tengo el 2030-05-14?» y «Agenda “Llamada con Ana” el 2030-05-16 de 15:00 a 16:00»: la acción espera tu `[s/N]`. `/borrar` y `/salir` funcionan dentro.
-6. **Opcional, con IA real: [`03_ia_real.ipynb`](03_ia_real.ipynb)** (~20 min): Ejercicios 8 (usar, preguntar o negarse) y 9 (reto: comparar dos modelos).
+1. **Elige tu ruta de modelo** (cualquiera sirve, y sin ninguna usas el simulado): `uv run python -m utilidades.configurar` y luego `uv run python -m utilidades.doctor --live`. Guías: [Gemini](../docs/gemini.md) (la más rápida) u [Ollama](../docs/ollama.md) con `gemma4:e2b`.
+2. **[`01_primer_agente.ipynb`](01_primer_agente.ipynb)** (~15 min): un agente de texto y uno que extrae datos con `output_type`. Ejercicio 1.
+3. **[`02_herramientas.ipynb`](02_herramientas.ipynb)** (~45 min): `tool_plain`, `deps` con `RunContext` y escrituras con aprobación. Ejercicios 2 a 4, y el 5: completar tu `mi_copiloto/agente.py`.
+4. **Conversa con tu agente:** desde `s1/`, `uv run python -m mi_copiloto.chat` (añade `--simulado` si no tienes modelo y `--modo gemini` para elegir ruta). Pide «¿Qué tengo el 2030-05-14?» y «Crea “Llamada con Ana” el 2030-05-16 de 15:00 a 16:00»: la acción espera tu `[s/N]`. `/borrar` y `/salir` funcionan dentro.
+5. **Opcional, con IA real: [`03_ia_real.ipynb`](03_ia_real.ipynb)** (~15 min): el reto de comparar Gemini y `gemma4:e2b`.
 
 Abre la carpeta del repo en VS Code (extensiones Python y Jupyter), abre `s1/01_primer_agente.ipynb`, elige el kernel `.venv` (*Select Kernel → Python Environments*) y ejecuta con Shift+Enter o *Run All*.
 
@@ -38,13 +34,12 @@ Abre la carpeta del repo en VS Code (extensiones Python y Jupyter), abre `s1/01_
 
 | Archivo | Qué es |
 |---|---|
-| `01_primer_agente.ipynb` | el bucle y el primer agente (Ejercicios 1 y 2) |
-| `02_herramientas.ipynb` | herramientas y aprobación (Ejercicios 3 a 7) |
-| `03_ia_real.ipynb` | opcional, con IA real: Ejercicios 8 y 9 |
-| `mi_copiloto/agente.py` | tu agente: `Respuesta`, instrucciones, `Deps`, tools y `crear_agente`. Tiene dos `# TODO Ejercicio 7` |
+| `01_primer_agente.ipynb` | el primer agente y la salida tipada (Ejercicio 1) |
+| `02_herramientas.ipynb` | herramientas y aprobación (Ejercicios 2 a 5) |
+| `03_ia_real.ipynb` | opcional, con IA real: el reto de dos modelos |
+| `mi_copiloto/agente.py` | tu agente: `Respuesta`, instrucciones, `Deps`, tools y `crear_agente`. Tiene dos `# TODO Ejercicio 5` |
 | `mi_copiloto/chat.py` | la terminal: historial, trazas de tools y `[s/N]` para aprobar |
 | `mi_copiloto/datos/` | agenda, correo y clima de práctica (ficticios o respuestas congeladas) |
-| `bucle_sin_framework.py` | el bucle de un agente con una interfaz de modelo (juguete o LLM real por HTTP) |
 
 ## Problemas frecuentes
 
@@ -52,7 +47,7 @@ Abre la carpeta del repo en VS Code (extensiones Python y Jupyter), abre `s1/01_
 |---|---|
 | El notebook dice «simulado» y quiero IA real | `COURSE_OFFLINE=0` en `.env` y reinicia el kernel |
 | `ModuleNotFoundError: mi_copiloto` | Abre el notebook desde su carpeta (`s1/`) con el kernel del `.venv`; en la terminal, haz `cd s1` primero |
-| `NotImplementedError: Completa crear_evento (Ejercicio 7)` | Te falta un `# TODO Ejercicio 7` de `mi_copiloto/agente.py` |
+| `NotImplementedError: Completa crear_evento (Ejercicio 5)` | Te falta un `# TODO Ejercicio 5` de `mi_copiloto/agente.py` |
 | `ConnectError` o «conexión rechazada» | Ollama no está activo ([ollama.md](../docs/ollama.md)) |
 | `429` | Cuota gratuita agotada: espera un minuto, cambia `GEMINI_MODEL` o usa otra ruta |
 | 401 o 403 | Clave mal copiada: revisa `.env` |
