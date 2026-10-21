@@ -18,10 +18,6 @@ Virtual sincrónico, **lunes, miércoles y jueves de 19:00 a 22:00**, del 19 al 
 
 Orden recomendado: **configurar** (`bash instalar.sh` o [`01_configurar`](s0/01_configurar.ipynb)) → **repaso** ([`02_repaso`](s0/02_repaso.ipynb)) → **ejercicios** ([`03_ejercicios`](s0/03_ejercicios.ipynb): 12 con autocorrección ✅/⏳, IA con código, Python para agentes y Pydantic) → **Pydantic AI con Gemini** ([`04_pydantic_ai_gemini`](s0/04_pydantic_ai_gemini.ipynb): conecta tu propia clave gratuita, [cómo crearla](docs/gemini.md)). Los ✅ son la evidencia; se revisa al inicio de la sesión 1. Detalles en [`s0/README.md`](s0/README.md).
 
-## S1: `s1/01_primer_agente.ipynb`
-
-Los materiales de la S1 se amplían hoy con la parte de herramientas. El notebook [`s1/01_primer_agente.ipynb`](s1/01_primer_agente.ipynb) tiene cinco ejercicios con autocorrección (✅/⏳) y un reto: escribir instrucciones, definir tu propio `output_type`, un despachador de tools robusto, medir el uso y comparar dos modelos. Funciona **sin red** con el modelo simulado y mejora mucho con IA real. Instrucciones en [`s1/README.md`](s1/README.md).
-
 ## Instalación en 3 pasos
 
 1. **Descarga el repositorio:** `git clone https://github.com/alex-roc/curso-agentes-uz.git` y entra a la carpeta, o pulsa *Code → Download ZIP* en GitHub y descomprímelo.
