@@ -31,7 +31,7 @@ uv run copiloto-configurar
 
 1. **Siempre `uv run ...`.** No escribas `python` a secas ni actives el entorno a mano.
 2. **Rutas:** `C:\cursos` se escribe `/c/cursos`; `~` es tu carpeta de usuario.
-3. **Notebooks en VS Code:** abre la carpeta, abre el `.ipynb` y elige el kernel `.venv\Scripts\python.exe`. También puedes usar `uv run jupyter lab`.
+3. **Notebooks en VS Code:** abre la carpeta del repositorio, abre el `.ipynb` y elige *Select Kernel → Python Environments → `.venv`* (en Windows es `.venv\Scripts\python.exe`; VS Code lo detecta solo). Tras cambiar `.env`, pulsa **Restart**.
 
 ## Problemas frecuentes
 

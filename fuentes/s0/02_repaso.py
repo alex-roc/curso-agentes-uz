@@ -107,7 +107,7 @@ revisar("Ejercicio 1 · tres casos generativos", lambda: all(tipo_de_ia(*c[1:4])
 revisar("Ejercicio 1 · dos casos agénticos", lambda: all(tipo_de_ia(*c[1:4]) == c[4] for c in CASOS if c[4] == "agentica"), "Herramientas + decide sus pasos = agentica")
 revisar("Ejercicio 1 · generar texto no basta para ser agente", lambda: tipo_de_ia("texto", False, True) == "generativa", "Sin herramientas no hay agente, aunque escriba muy bien")
 # %% [markdown]
-# Fíjate en el último caso: un sistema que escribe muy bien pero no usa herramientas sigue siendo generativo. En la sesión 1 le daremos al modelo un bucle y, en la sesión 2, herramientas: ahí empieza lo agéntico.
+# Fíjate en el último caso: un sistema que escribe muy bien pero no usa herramientas sigue siendo generativo. En la sesión 1 le daremos al modelo un bucle y herramientas: ahí empieza lo agéntico.
 # %% [markdown]
 # # Parte 2 · Python para agentes
 # Entorno, uv, Python con tipos, async, httpx, Pydantic y secretos: el Python que usa el código de Mi copiloto. Desde aquí necesitas el entorno instalado (README del repositorio).
@@ -123,7 +123,7 @@ print("Python:", sys.version.split()[0])
 print("Entorno del kernel:", entorno)
 print("¿Es el .venv del proyecto?", entorno == ".venv")
 # %% [markdown]
-# Si imprime `False`, cierra Jupyter y ábrelo con `uv run jupyter lab` desde la carpeta que contiene `pyproject.toml`. Después elige el kernel el kernel «Python 3 (ipykernel)» del proyecto.
+# Si imprime `False`, abre en VS Code **la carpeta** que contiene `pyproject.toml` (Archivo → Abrir carpeta) y elige el kernel con *Select Kernel → Python Environments → `.venv`*.
 # %% [markdown]
 # ## 5 · Python con tipos
 # Los tipos no cambian lo que hace el programa: documentan qué espera cada función y permiten que Pydantic AI genere el esquema de una tool a partir de la firma. Usamos la sintaxis moderna: `str | None`, `list[dict]`, `Literal`.
@@ -248,7 +248,7 @@ revisar("Ejercicio 2 · la función declara tipos", lambda: get_type_hints(total
 # %% [markdown]
 # ## 8 · Asincronía: esperar sin bloquear
 # Un agente casi no calcula: **espera**. Espera la respuesta del modelo, de una API de clima, de la base de datos. Con `async def` una función puede ceder el turno en cada `await`; mientras una espera, otra avanza. Con `asyncio.gather` lanzas varias a la vez.
-# En un notebook ya hay un bucle de eventos en marcha: escribe `await` directamente (top-level await). `asyncio.run()` dentro de Jupyter falla.
+# En un notebook ya hay un bucle de eventos en marcha: escribe `await` directamente (top-level await). `asyncio.run()` dentro de un notebook falla.
 # %%
 import asyncio
 import time

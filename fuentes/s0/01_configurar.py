@@ -6,13 +6,13 @@
 # **Formato:** opcional y de unos 5 min. Si prefieres la terminal, `bash instalar.sh` (o `instalar.ps1` en PowerShell) hace lo mismo con preguntas guiadas.
 # %% [markdown]
 # ## 1 · Python y paquetes
-# Debe salir Python 3.12 o superior, y ningún paquete en «falta». Si algo falta, cierra Jupyter y ejecuta `uv sync` en la raíz del repositorio; abre Jupyter con `uv run jupyter lab`.
+# Debe salir Python 3.12 o superior, y ningún paquete en «falta». Si algo falta, ejecuta `uv sync` en la raíz del repositorio y, en VS Code, elige de nuevo el kernel `.venv` (*Select Kernel → Python Environments → `.venv`*) y pulsa **Restart**.
 # %%
 import sys
 from importlib.metadata import PackageNotFoundError, version
 
 print("Python", sys.version.split()[0], "(correcto)" if sys.version_info >= (3, 12) else "(falta 3.12+: usa `uv run`)")
-for paquete in ["pydantic-ai-slim", "pydantic-settings", "httpx", "jupyterlab", "rich"]:
+for paquete in ["pydantic-ai-slim", "pydantic-settings", "httpx", "ipykernel", "rich"]:
     try:
         print(f"  {paquete} {version(paquete)}")
     except PackageNotFoundError:

@@ -8,20 +8,19 @@ Virtual sincrónico, **lunes, miércoles y jueves de 19:00 a 22:00**, del 19 al 
 | Sesión | Fecha | Tema | Qué hay aquí |
 |---|---|---|---|
 | 0 | lun 19 oct (inicio) | Repaso previo: IA y Python | [`s0/`](s0/): notebooks numerados en orden: [`01_configurar`](s0/01_configurar.ipynb), [`02_repaso`](s0/02_repaso.ipynb), **tarea** [`03_ejercicios`](s0/03_ejercicios.ipynb) y [`04_pydantic_ai_gemini`](s0/04_pydantic_ai_gemini.ipynb) |
-| 1 | lun 19 oct | De los chatbots a los agentes de IA | [`s1/`](s1/): notebook 01 (la tarea), bucle sin framework, terminal de chat |
-| 2 | mié 21 oct | Diseño de agentes, herramientas y acciones | próximamente |
-| 3 | jue 22 oct | Conocimiento, contexto y memoria | próximamente |
-| 4 | lun 26 oct | Interoperabilidad, automatización y MCP | próximamente |
-| 5 | mié 28 oct | Flujos agénticos y sistemas de varios pasos | próximamente |
-| 6 | jue 29 oct | Despliegue y proyecto final | próximamente |
+| 1 | mié 21 oct | De los chatbots a los agentes; herramientas, APIs y acciones | [`s1/`](s1/): notebook 01, bucle sin framework, terminal de chat (hoy se amplía con la parte de herramientas) |
+| 2 | jue 22 oct | Conocimiento, contexto y memoria | próximamente |
+| 3 | lun 26 oct | Interoperabilidad, automatización y MCP | próximamente |
+| 4 | mié 28 oct | Flujos agénticos y sistemas de varios agentes | próximamente |
+| 5 | jue 29 oct | Despliegue y cierre con el proyecto final | próximamente |
 
 ## Tarea de la S0: notebooks `s0/01` a `s0/04`
 
 Orden recomendado: **configurar** (`bash instalar.sh` o [`01_configurar`](s0/01_configurar.ipynb)) → **repaso** ([`02_repaso`](s0/02_repaso.ipynb)) → **ejercicios** ([`03_ejercicios`](s0/03_ejercicios.ipynb): 12 con autocorrección ✅/⏳, IA con código, Python para agentes y Pydantic) → **Pydantic AI con Gemini** ([`04_pydantic_ai_gemini`](s0/04_pydantic_ai_gemini.ipynb): conecta tu propia clave gratuita, [cómo crearla](docs/gemini.md)). Los ✅ son la evidencia; se revisa al inicio de la sesión 1. Detalles en [`s0/README.md`](s0/README.md).
 
-## Tarea de la S1: `s1/01_primer_agente.ipynb`
+## S1: `s1/01_primer_agente.ipynb`
 
-**Es lo más importante de esta semana.** El notebook [`s1/01_primer_agente.ipynb`](s1/01_primer_agente.ipynb) tiene cinco ejercicios con autocorrección (✅/⏳) y un reto: escribir instrucciones, definir tu propio `output_type`, un despachador de tools robusto, medir el uso y comparar dos modelos. Funciona **sin red** con el modelo simulado y mejora mucho con IA real. Instrucciones en [`s1/README.md`](s1/README.md).
+Los materiales de la S1 se amplían hoy con la parte de herramientas. El notebook [`s1/01_primer_agente.ipynb`](s1/01_primer_agente.ipynb) tiene cinco ejercicios con autocorrección (✅/⏳) y un reto: escribir instrucciones, definir tu propio `output_type`, un despachador de tools robusto, medir el uso y comparar dos modelos. Funciona **sin red** con el modelo simulado y mejora mucho con IA real. Instrucciones en [`s1/README.md`](s1/README.md).
 
 ## Instalación en 3 pasos
 
@@ -29,13 +28,13 @@ Orden recomendado: **configurar** (`bash instalar.sh` o [`01_configurar`](s0/01_
 2. **Ejecuta el instalador** (instala `uv`, Python 3.12 y las dependencias, y te guía para elegir y probar tu modelo):
    - macOS, Linux o Git Bash en Windows: `bash instalar.sh`
    - PowerShell en Windows: `powershell -ExecutionPolicy Bypass -File instalar.ps1`
-3. **Abre los notebooks:** en VS Code (recomendado, ver abajo) o con `uv run jupyter lab`
+3. **Abre los notebooks en VS Code** (ver «Notebooks en VS Code», abajo).
 
-El único requisito previo es tener internet. Si prefieres hacerlo por partes: `uv sync` y luego `uv run copiloto-configurar` (repítelo cuando quieras cambiar de ruta). Alternativa en Jupyter: [`s0/01_configurar.ipynb`](s0/01_configurar.ipynb). Detalles en la sección siguiente.
+El único requisito previo es tener internet. Si prefieres hacerlo por partes: `uv sync` y luego `uv run copiloto-configurar` (repítelo cuando quieras cambiar de ruta). Alternativa: [`s0/01_configurar.ipynb`](s0/01_configurar.ipynb). Detalles en la sección siguiente.
 
 ## Notebooks en VS Code
 
-1. Instala [VS Code](https://code.visualstudio.com) y abre **la carpeta del repositorio** (Archivo → Abrir carpeta). Acepta instalar las extensiones recomendadas: **Python** y **Jupyter**.
+1. Instala [VS Code](https://code.visualstudio.com) y abre **la carpeta del repositorio** (Archivo → Abrir carpeta). Acepta instalar las extensiones recomendadas: **Python** y **Jupyter**. La carpeta trae `.vscode/settings.json`, que ya apunta al `.venv`.
 2. Abre un notebook (por ejemplo `s0/03_ejercicios.ipynb`) y, arriba a la derecha, pulsa **Select Kernel → Python Environments → `.venv`** (el entorno que creó `instalar.sh`). Si no aparece, ejecuta antes `uv sync` y recarga la ventana.
 3. Ejecuta celda por celda con **Shift+Enter**, o **Run All**. Si cambias `.env` (por ejemplo `COURSE_OFFLINE=0`), pulsa **Restart** en la barra del notebook.
 
@@ -48,7 +47,7 @@ git clone https://github.com/alex-roc/curso-agentes-uz.git
 cd curso-agentes-uz
 uv sync                  # crea .venv con las dependencias fijadas en uv.lock
 uv run copiloto-configurar   # crea .env, elige tu ruta de modelo y la prueba (.env nunca se sube a Git)
-uv run jupyter lab       # abre los notebooks
+code .                  # abre la carpeta en VS Code (o Archivo → Abrir carpeta)
 ```
 
 - **macOS:** `brew install uv git`. **Linux:** `curl -LsSf https://astral.sh/uv/install.sh | sh`.
@@ -73,7 +72,7 @@ Los notebooks arrancan con el modelo **simulado** (`COURSE_OFFLINE=1` en `.env`)
 ## Evaluación
 
 - **Nota mínima de aprobación: 70/100.** Asistencia mínima: 80 %.
-- **Trabajo final:** un **agente desplegado** más un **video explicativo subido a YouTube** (entrega el enlace). Fecha límite: **5 de noviembre de 2026**.
+- **Trabajo final (100 % de la nota):** un **agente desplegado** más un **video explicativo subido a YouTube** (entrega el enlace). Fecha límite: **5 de noviembre de 2026**.
 
 ## Qué hay en el repositorio
 

@@ -1,6 +1,6 @@
-# Sesión 1 · De los chatbots a los agentes de IA
+# Sesión 1 · De los chatbots a los agentes, herramientas, APIs y acciones
 
-Lunes 19 de octubre de 2026. Todo lo de esta carpeta se ejecuta desde la **raíz del repositorio** con `uv run`. Si aún no instalaste, sigue la [«Instalación en 3 pasos» del README](../README.md#instalación-en-3-pasos): `bash instalar.sh` (o `instalar.ps1`) lo deja todo listo y configura tu modelo.
+Miércoles 21 de octubre de 2026 (la S0 fue el lunes 19). Esta sesión fusiona «de los chatbots a los agentes» con «herramientas, APIs y acciones»: **los materiales de la S1 se actualizarán hoy con la parte de herramientas**; lo que hay ahora es la primera parte. Todo lo de esta carpeta se ejecuta desde la **raíz del repositorio** con `uv run`. Si aún no instalaste, sigue la [«Instalación en 3 pasos» del README](../README.md#instalación-en-3-pasos): `bash instalar.sh` (o `instalar.ps1`) lo deja todo listo y configura tu modelo.
 
 ## Qué hacer hoy, en orden
 
@@ -14,13 +14,11 @@ Lunes 19 de octubre de 2026. Todo lo de esta carpeta se ejecuta desde la **raíz
 
 ## La tarea: `01_primer_agente.ipynb`
 
-```bash
-uv run jupyter lab s1/01_primer_agente.ipynb
-```
+Ábrelo en VS Code con la carpeta del repositorio abierta: *Select Kernel → Python Environments → `.venv`*, y ejecuta con **Shift+Enter** o **Run All**.
 
 - Cada ejercicio tiene una celda `# TODO` y una celda de autocorrección: **✅** pasa, **⏳** falta algo (te dice qué). Un ⏳ no rompe el notebook.
 - **Simulado (por defecto):** `COURSE_OFFLINE=1` en `.env`. Sirve para ver el ciclo y comprobar tu código; **no mide calidad**.
-- **IA real:** pon `COURSE_OFFLINE=0` en `.env` y reinicia el kernel (*Kernel → Restart*). El ejercicio 5 (reto) solo tiene sentido así.
+- **IA real:** pon `COURSE_OFFLINE=0` en `.env` y pulsa **Restart** en la barra del notebook. El ejercicio 5 (reto) solo tiene sentido así.
 - `.env` gana sobre las variables de tu terminal: si exportas otra `GEMINI_API_KEY`, el curso usa la de `.env`.
 - **Entrega:** el notebook con tus cambios y, si puedes, con las salidas de una ejecución con IA real. Guarda la tabla del ejercicio 5 y una frase sobre lo que la validación del esquema **no** puede comprobar.
 

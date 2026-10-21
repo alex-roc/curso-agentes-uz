@@ -9,7 +9,7 @@
 # %% [markdown]
 # ## Preparación reproducible
 # Las dependencias se instalan **antes** de abrir el notebook (`uv sync`, ver el README del repositorio). Si algo falla, `uv run copiloto-doctor` dice qué parte del entorno no responde.
-# Por defecto el notebook usa el **modelo simulado**: elige tools por palabras clave y rellena cualquier `output_type`. No es inteligencia artificial y **no mide calidad**; sirve para ver el recorrido completo sin red ni cuota. Para IA real: configura `.env` (ruta y clave), ejecuta `uv run copiloto-doctor --live`, pon `COURSE_OFFLINE=0` en `.env` y reinicia el kernel (menú *Kernel → Restart*).
+# Por defecto el notebook usa el **modelo simulado**: elige tools por palabras clave y rellena cualquier `output_type`. No es inteligencia artificial y **no mide calidad**; sirve para ver el recorrido completo sin red ni cuota. Para IA real: configura `.env` (ruta y clave), ejecuta `uv run copiloto-doctor --live`, pon `COURSE_OFFLINE=0` en `.env` y reinicia el kernel (botón **Restart** de la barra del notebook en VS Code).
 # %%
 from copiloto.practica import preparar, revisar, ver_mensajes
 

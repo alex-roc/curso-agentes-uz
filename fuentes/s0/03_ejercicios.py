@@ -227,7 +227,7 @@ comprobar("Ejercicio 9 · choques", lambda: choques(AGENDA) == [("Taller", "Reun
 comprobar("Ejercicio 9 · sin choques", lambda: choques(AGENDA[2:3]) == [] and choques([]) == [], "Con uno o ningún evento no hay choques")
 # %% [markdown]
 # ## Ejercicio 10 · Varias llamadas a la vez con `asyncio.gather`
-# Las tools de un agente esperan a la red. Tres consultas de 0,5 s en secuencia tardan 1,5 s; en paralelo, 0,5 s. La celda de abajo las hace **en secuencia**: cámbiala para que corran **a la vez** con `asyncio.gather` y devuelve también los segundos que tardó. (En Jupyter se puede usar `await` directamente en una celda.)
+# Las tools de un agente esperan a la red. Tres consultas de 0,5 s en secuencia tardan 1,5 s; en paralelo, 0,5 s. La celda de abajo las hace **en secuencia**: cámbiala para que corran **a la vez** con `asyncio.gather` y devuelve también los segundos que tardó. (En un notebook se puede usar `await` directamente en una celda.)
 # %%
 async def consultar_clima(ciudad: str) -> str:
     await asyncio.sleep(0.5)

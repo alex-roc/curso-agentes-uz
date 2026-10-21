@@ -7,7 +7,7 @@ Todo se ejecuta desde la **raíz del repositorio** con `uv run`. Los notebooks v
 3. **Ejercicios:** [`03_ejercicios.ipynb`](03_ejercicios.ipynb), doce ejercicios con autocorrección, sin red.
 4. **Pydantic AI con Gemini:** [`04_pydantic_ai_gemini.ipynb`](04_pydantic_ai_gemini.ipynb), con tu clave gratuita.
 
-Ábrelos en VS Code (kernel `.venv`, ver el README principal) o con `uv run jupyter lab s0/03_ejercicios.ipynb`.
+Ábrelos en VS Code (kernel `.venv`, ver el README principal) .
 
 ## Notebook 03 · Ejercicios
 

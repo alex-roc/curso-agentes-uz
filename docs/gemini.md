@@ -36,7 +36,6 @@ Para que los notebooks usen la IA real, pon también `COURSE_OFFLINE=0` en `.env
 ```bash
 uv run copiloto-doctor --live          # muestra el modelo y un saludo
 uv run python s1/chat_terminal.py
-uv run jupyter lab
 ```
 
 Para volver a Ollama, cambia `MODE=local`. No hace falta borrar la clave.
