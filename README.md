@@ -8,7 +8,7 @@ Virtual sincrónico, **lunes, miércoles y jueves de 19:00 a 22:00**, del 19 al 
 | Sesión | Fecha | Tema | Qué hay aquí |
 |---|---|---|---|
 | 0 | lun 19 oct (inicio) | Repaso previo: IA y Python | [`s0/`](s0/)|
-| 1 | mié 21 oct | Introducción a Pydantic AI y tools (agente, tools, capabilities, APIs abiertas y SQLite) | [`s1/`](s1/) |
+| 1 | mié 21 oct | Introducción a Pydantic AI y tools (agente, tools, capabilities, APIs abiertas y SQLite para leer y escribir) | [`s1/`](s1/) |
 | 2 | jue 22 oct | Conocimiento, contexto y memoria | próximamente |
 | 3 | lun 26 oct | Interoperabilidad, automatización y MCP | próximamente |
 | 4 | mié 28 oct | Flujos agénticos y sistemas de varios agentes | próximamente |
@@ -88,7 +88,7 @@ Es la infraestructura del curso: código de apoyo que evita repetir lo mismo en 
 instalar.sh / instalar.ps1   instalador de un paso (uv, dependencias, configurador)
 utilidades/  infraestructura del curso: elegir modelo, modelo simulado, configurador y doctor
 s0/          sesión 0: repaso y tarea de ejercicios (IA, Python, Pydantic, Gemini)
-s1/          sesión 1: notebook de Pydantic AI y tools (ejercicios 1 a 5 y reto)
+s1/          sesión 1: notebook de Pydantic AI y tools (ejercicios 1 a 6 y reto)
 docs/        guías de instalación y de cada ruta de modelo
 ```
 

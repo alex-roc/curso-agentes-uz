@@ -1,10 +1,10 @@
-# Sesión 1 · Introducción a Pydantic AI y tools de lectura
+# Sesión 1 · Introducción a Pydantic AI y tools
 
-Miércoles 21 de octubre de 2026. Programas agentes con **Pydantic AI** directamente: un `Agent`, tools, `Capability`, salida tipada y tools que **leen** datos de APIs abiertas (sin clave) y de una base **SQLite** local. Si aún no instalaste, sigue la [«Instalación en 3 pasos» del README](../README.md). Si ya clonaste el repo, `git pull` te trae esta carpeta.
+Miércoles 21 de octubre de 2026. Programas agentes con **Pydantic AI** directamente: un `Agent`, tools, `Capability`, salida tipada y tools que **leen** datos de APIs abiertas (sin clave) y de una base **SQLite** local, y una tool que **escribe** en esa base. Si aún no instalaste, sigue la [«Instalación en 3 pasos» del README](../README.md). Si ya clonaste el repo, `git pull` te trae esta carpeta.
 
 ## Cómo se conecta con la clase
 
-En clase hay cinco demos (**Demo 1** a **Demo 5**). El notebook alterna un **ejemplo mínimo** (el código de la demo) con un **ejercicio** que lo varía.
+En clase hay seis demos (**Demo 1** a **Demo 6**). El notebook alterna un **ejemplo mínimo** (el código de la demo) con un **ejercicio** que lo varía.
 
 | Ejercicio | Qué haces | Se apoya en | Nivel |
 |---|---|---|---|
@@ -13,6 +13,7 @@ En clase hay cinco demos (**Demo 1** a **Demo 5**). El notebook alterna un **eje
 | 3 · Capability de clima | `consultar_clima(ciudad)` con Open-Meteo | Demo 4 · API abierta | medio |
 | 4 · Biblioteca en SQLite | `buscar_libros(texto)` de solo lectura | Demo 5 · SQLite | medio |
 | 5 · Dos capabilities | un agente con `clima` y `biblioteca` | Demo 5 | medio |
+| 6 · Registra libros | `registrar_libro` (una tool que **escribe** en SQLite) | Demo 6 · Escritura | medio |
 | Reto · Tipo de cambio | `tipo_de_cambio` + `output_type`, y `defer_loading` | Demos 3 y 4 | reto |
 
 ## Cómo trabajar
