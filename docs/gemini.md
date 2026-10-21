@@ -35,7 +35,6 @@ Para que los notebooks usen la IA real, pon también `COURSE_OFFLINE=0` en `.env
 
 ```bash
 uv run python -m utilidades.doctor --live          # muestra el modelo y un saludo
-uv run python s1/chat_terminal.py
 ```
 
 Para volver a Ollama, cambia `MODE=local`. No hace falta borrar la clave.
@@ -57,7 +56,7 @@ Los modelos **Pro** no tienen capa gratuita. Google cambia este catálogo con fr
 - Los límites son **por proyecto**, no por clave, y dependen del modelo. Míralos en **https://aistudio.google.com/rate-limit**.
 - La cuota diaria se reinicia a medianoche del Pacífico, que son las 03:00 en Bolivia.
 - **Un mensaje no es una petición.** Un pedido con tools hace entre 2 y 4 llamadas al modelo; un flujo multiagente de la S5, más.
-- Si ves `429`, esperaste poco entre pedidos o se acabó la cuota del día. `s1/chat_terminal.py` lo explica y sugiere qué hacer. Espera un minuto, cambia `GEMINI_MODEL` o sigue con `MODE=offline`. **No** lo arregles con bucles de reintento.
+- Si ves `429`, esperaste poco entre pedidos o se acabó la cuota del día. Espera un minuto, cambia `GEMINI_MODEL` o sigue con `MODE=offline`. **No** lo arregles con bucles de reintento.
 
 ## 5. Privacidad: solo datos ficticios
 
