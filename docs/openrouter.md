@@ -31,7 +31,7 @@ OPENROUTER_MODEL=nvidia/nemotron-3-super-120b-a12b:free
 ```
 
 ```bash
-uv run copiloto-doctor --live        # muestra el modelo y un saludo
+uv run python -m utilidades.doctor --live        # muestra el modelo y un saludo
 uv run python s1/chat_terminal.py    # pregunta «¿qué hora es?»: ¿usa la tool?
 ```
 

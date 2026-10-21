@@ -1,4 +1,4 @@
-"""Configurador del curso: `uv run copiloto-configurar` deja `.env` listo y prueba el modelo.
+"""Configurador del curso: `uv run python -m utilidades.configurar` deja `.env` listo y prueba el modelo.
 
 Interactivo por defecto. Para automatizar (o probar): `--ruta gemini|openrouter|local|simulado`,
 `--modelo ID`, la clave en la variable `COPILOTO_CLAVE` y `--sin-prueba`.
@@ -16,7 +16,7 @@ import warnings
 import httpx
 from rich.console import Console
 
-from .config import ROOT, Settings, describir_modelo
+from .config import ROOT, Settings, describir_ruta
 from .doctor import prueba_en_vivo
 
 consola = Console(highlight=False)
@@ -24,8 +24,18 @@ ENV = ROOT / ".env"
 EJEMPLO = ROOT / ".env.example"
 OPENROUTER_MODELOS = "https://openrouter.ai/api/v1/models"
 RUTAS = {
-    "gemini": ("MODE=gemini", "GEMINI_API_KEY", ("AIza", "AQ."), "https://aistudio.google.com/apikey"),
-    "openrouter": ("MODE=openrouter", "OPENROUTER_API_KEY", ("sk-or-",), "https://openrouter.ai/keys"),
+    "gemini": (
+        "MODE=gemini",
+        "GEMINI_API_KEY",
+        ("AIza", "AQ."),
+        "https://aistudio.google.com/apikey",
+    ),
+    "openrouter": (
+        "MODE=openrouter",
+        "OPENROUTER_API_KEY",
+        ("sk-or-",),
+        "https://openrouter.ai/keys",
+    ),
 }
 PRIVACIDAD = (
     "[yellow]Privacidad:[/] con las capas gratuitas de Gemini y OpenRouter lo que escribes viaja "
@@ -75,7 +85,9 @@ def confirmar(texto: str, defecto: bool = True) -> bool:
 def revisar_clave(clave: str, prefijos: tuple[str, ...]) -> bool:
     """Rechaza lo que claramente no es una clave; un prefijo raro solo avisa (los formatos cambian)."""
     if len(clave) < 20 or any(c in clave for c in " \"'"):
-        consola.print("[red]Eso no parece una clave: revisa que la copiaste completa, sin comillas ni espacios.[/]")
+        consola.print(
+            "[red]Eso no parece una clave: revisa que la copiaste completa, sin comillas ni espacios.[/]"
+        )
         return False
     if not clave.startswith(prefijos):
         consola.print(
@@ -92,7 +104,9 @@ def pedir_clave(nombre: str, prefijo: tuple[str, ...], url: str) -> str:
             clave = getpass.getpass(f"{nombre}: ").strip()
         if revisar_clave(clave, prefijo):
             return clave
-    sys.exit("No se recibió una clave válida. Vuelve a ejecutar `uv run copiloto-configurar`.")
+    sys.exit(
+        "No se recibió una clave válida. Vuelve a ejecutar `uv run python -m utilidades.configurar`."
+    )
 
 
 # ── Rutas ───────────────────────────────────────────────────────────────
@@ -145,16 +159,25 @@ def preparar_ollama(modelo: str, url: str, interactivo: bool) -> bool:
         return False
     if any(m == modelo or m.split(":")[0] == modelo for m in modelos):
         return True
-    consola.print(f"Falta el modelo [bold]{modelo}[/] (unos 2,5 GB de descarga).")
+    consola.print(f"Falta el modelo [bold]{modelo}[/] (descarga de unos 4,6 GB).")
     if interactivo and not confirmar("¿Descargarlo ahora con `ollama pull`?"):
         return False
     return subprocess.run(["ollama", "pull", modelo]).returncode == 0
 
 
 AYUDA_ERRORES = (
-    ("429", "Cuota gratuita agotada. Espera un minuto, cambia `GEMINI_MODEL` en `.env` o usa otra ruta."),
-    ("401", "Clave rechazada. Vuelve a ejecutar `uv run copiloto-configurar` y pégala de nuevo."),
-    ("403", "Clave sin permiso (o proyecto con facturación). Crea una nueva en un proyecto gratuito."),
+    (
+        "429",
+        "Cuota gratuita agotada. Espera un minuto, cambia `GEMINI_MODEL` en `.env` o usa otra ruta.",
+    ),
+    (
+        "401",
+        "Clave rechazada. Vuelve a ejecutar `uv run python -m utilidades.configurar` y pégala de nuevo.",
+    ),
+    (
+        "403",
+        "Clave sin permiso (o proyecto con facturación). Crea una nueva en un proyecto gratuito.",
+    ),
     ("400", "Petición rechazada: casi siempre una clave mal copiada. Créala de nuevo."),
     ("Connect", "No hay conexión con el modelo: sin internet o Ollama apagado (`ollama serve`)."),
     ("not found", "Ese modelo no existe en tu cuenta o en tu Ollama: revisa el nombre en `.env`."),
@@ -162,7 +185,7 @@ AYUDA_ERRORES = (
 
 
 def probar(settings: Settings) -> bool:
-    consola.print(f"Probando el modelo [bold]{describir_modelo(settings)}[/] (puede tardar)…")
+    consola.print(f"Probando el modelo [bold]{describir_ruta(settings)}[/] (puede tardar)…")
     try:
         texto = asyncio.run(prueba_en_vivo(settings))
     except Exception as exc:
@@ -207,7 +230,7 @@ def main() -> None:
             "¿Con qué modelo quieres trabajar?\n"
             "  1. [bold]Gemini gratis[/]: la más fácil para empezar. Clave gratuita de Google, sin tarjeta.\n"
             "  2. [bold]OpenRouter :free[/]: modelos abiertos en la nube, 50 peticiones por día.\n"
-            "  3. [bold]Ollama local[/]: corre en tu equipo (~2,5 GB), datos privados; pide RAM.\n"
+            "  3. [bold]Ollama local[/]: corre en tu equipo (gemma4:e2b, unos 4,6 GB), datos privados; pide RAM.\n"
             "  4. [bold]Simulado[/]: sin IA; solo muestra el recorrido de un agente.\n"
         )
         ruta = {"1": "gemini", "2": "openrouter", "3": "local", "4": "simulado"}.get(
@@ -220,7 +243,7 @@ def main() -> None:
     if ruta == "simulado":
         cambios = {"MODE": "offline", "COURSE_OFFLINE": "1"}
     elif ruta == "local":
-        modelo = args.modelo or actual.get("OLLAMA_MODEL") or "qwen3:4b-instruct"
+        modelo = args.modelo or actual.get("OLLAMA_MODEL") or "gemma4:e2b"
         url = actual.get("OLLAMA_BASE_URL") or "http://localhost:11434"
         if not preparar_ollama(modelo, url, interactivo):
             sys.exit("Deja Ollama listo (docs/ollama.md) y vuelve a ejecutar el configurador.")
@@ -238,7 +261,9 @@ def main() -> None:
                 sys.exit(f"Falta la clave: define COPILOTO_CLAVE o {nombre_clave} en .env.")
             clave = pedir_clave(nombre_clave, prefijo, url)
         if not revisar_clave(clave, prefijo):
-            sys.exit("La clave no parece válida. Vuelve a ejecutar `uv run copiloto-configurar`.")
+            sys.exit(
+                "La clave no parece válida. Vuelve a ejecutar `uv run python -m utilidades.configurar`."
+            )
         cambios = {"MODE": ruta, "COURSE_OFFLINE": "0", nombre_clave: clave}
         if ruta == "openrouter":
             cambios["OPENROUTER_MODEL"] = elegir_modelo_openrouter(
@@ -260,14 +285,13 @@ def main() -> None:
     if ok:
         consola.print(
             "[bold green]Listo.[/] Abre la carpeta del repositorio en [bold]VS Code[/] (kernel [bold].venv[/]) y sigue los notebooks "
-            "numerados de [bold]s0/[/] (02, 03 y 04) y luego [bold]s1/01_primer_agente.ipynb[/].\nO conversa en la terminal: "
-            "[bold]uv run python s1/chat_terminal.py[/]. Para cambiar de ruta, repite "
-            "`uv run copiloto-configurar`."
+            "numerados de [bold]s0/[/] (02, 03 y 04) y luego los de [bold]s1/[/]. "
+            "Para cambiar de ruta, repite `uv run python -m utilidades.configurar`."
         )
     else:
         consola.print(
             "[yellow]La configuración quedó guardada, pero la prueba falló.[/] Corrige lo indicado y "
-            "repite `uv run copiloto-configurar` (o `uv run copiloto-doctor --live`)."
+            "repite `uv run python -m utilidades.configurar` (o `uv run python -m utilidades.doctor --live`)."
         )
         sys.exit(1)
 

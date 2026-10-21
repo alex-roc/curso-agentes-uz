@@ -15,7 +15,7 @@ Doce ejercicios con autocorrección (✅/⏳) en tres partes: **A** IA con códi
 
 ## Notebook 04 · Pydantic AI con tu clave de Gemini
 
-Cinco ejercicios (comprobar la configuración, crear el agente, errores amables, una respuesta real y comparar dos modelos) más un reto opcional (del texto libre a un `Gasto`). Necesita una clave gratuita de Gemini (sin tarjeta, en https://aistudio.google.com/apikey): tu `.env` debe tener `GEMINI_API_KEY` y `COURSE_OFFLINE=0` (y reiniciar el kernel). `uv run copiloto-configurar --ruta gemini` lo deja listo.
+Cinco ejercicios (comprobar la configuración, crear el agente, errores amables, una respuesta real y comparar dos modelos) más un reto opcional (del texto libre a un `Gasto`). Necesita una clave gratuita de Gemini (sin tarjeta, en https://aistudio.google.com/apikey): tu `.env` debe tener `GEMINI_API_KEY` y `COURSE_OFFLINE=0` (y reiniciar el kernel). `uv run python -m utilidades.configurar --ruta gemini` lo deja listo.
 
 - Usa solo datos ficticios y **no imprimas ni subas tu clave**.
 - **Entrega:** *Restart and Run All*, guarda cada notebook con las salidas (en VS Code: **Restart** y luego **Run All**) y muestra los ✅ al inicio de la sesión 1.

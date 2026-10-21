@@ -34,7 +34,7 @@ GEMINI_MODEL=gemini-3.5-flash-lite
 Para que los notebooks usen la IA real, pon también `COURSE_OFFLINE=0` en `.env`. Comprueba y conversa:
 
 ```bash
-uv run copiloto-doctor --live          # muestra el modelo y un saludo
+uv run python -m utilidades.doctor --live          # muestra el modelo y un saludo
 uv run python s1/chat_terminal.py
 ```
 

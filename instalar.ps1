@@ -30,5 +30,5 @@ uv sync
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
 Write-Host ""
-uv run copiloto-configurar @args
+uv run python -m utilidades.configurar @args
 exit $LASTEXITCODE

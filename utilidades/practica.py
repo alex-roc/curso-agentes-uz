@@ -1,4 +1,10 @@
-"""Utilidades para los notebooks: preparar el entorno, ver qué pasó y autocorregir ejercicios."""
+"""Utilidades para los notebooks: preparar el entorno, ver qué pasó y autocorregir ejercicios.
+
+Primera celda de cada notebook:
+
+    from utilidades.practica import preparar, revisar, ver_mensajes
+    settings, OFFLINE = preparar()
+"""
 
 import json
 from collections.abc import Callable
@@ -13,7 +19,7 @@ from pydantic_ai.messages import (
     UserPromptPart,
 )
 
-from .config import ROOT, Settings, describir_modelo
+from .config import ROOT, Settings, describir_ruta
 
 
 def preparar(**cambios) -> tuple[Settings, bool]:
@@ -22,7 +28,7 @@ def preparar(**cambios) -> tuple[Settings, bool]:
     offline = settings.offline or settings.course_offline
     if offline:
         settings = settings.model_copy(update={"mode": "offline"})
-    print(f"Modelo: {describir_modelo(settings)}")
+    print(f"Modelo: {describir_ruta(settings)}")
     if offline:
         print(
             "Modo práctica sin LLM: el modelo simulado NO mide calidad. "

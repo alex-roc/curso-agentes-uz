@@ -1,63 +1,43 @@
-# Sesión 1 · De los chatbots a los agentes, herramientas, APIs y acciones
+# Sesión 1 · De los chatbots a los agentes de IA, con herramientas y acciones
 
-Miércoles 21 de octubre de 2026 (la S0 fue el lunes 19). Esta sesión fusiona «de los chatbots a los agentes» con «herramientas, APIs y acciones»: **los materiales de la S1 se actualizarán hoy con la parte de herramientas**; lo que hay ahora es la primera parte. Todo lo de esta carpeta se ejecuta desde la **raíz del repositorio** con `uv run`. Si aún no instalaste, sigue la [«Instalación en 3 pasos» del README](../README.md#instalación-en-3-pasos): `bash instalar.sh` (o `instalar.ps1`) lo deja todo listo y configura tu modelo.
+Miércoles 21 de octubre de 2026. Programas tu agente con **Pydantic AI directamente**: no hay ninguna capa intermedia. Los notebooks se ejecutan desde VS Code; los scripts, con `uv run` desde la carpeta `s1/`. Si aún no instalaste, sigue la [«Instalación en 3 pasos» del README](../README.md). Si ya clonaste el repo, `git pull` te trae esta carpeta.
 
-## Qué hacer hoy, en orden
+## Qué hacer, en orden
 
-1. **Elige tu ruta de modelo** (5 a 15 min). Cualquiera sirve; sin ninguna, usa el simulado.
-   - Gemini gratis: [../docs/gemini.md](../docs/gemini.md) (la más rápida) · OpenRouter: [../docs/openrouter.md](../docs/openrouter.md) · Ollama: [../docs/ollama.md](../docs/ollama.md).
-   - Lo más fácil: `uv run copiloto-configurar` (te guía, guarda `.env` y prueba el modelo). Comprobar después: `uv run copiloto-doctor --live`.
-2. **Mira el bucle de un agente sin framework:** `uv run python s1/bucle_sin_framework.py`. Un solo bucle, dos «modelos»: uno de juguete y un LLM real. Lee el código: son unas 60 líneas.
-3. **Conversa con un agente en la terminal:** `uv run python s1/chat_terminal.py` (añade `--offline` para el modelo simulado). Pregúntale «¿qué hora es?» y «calcula el presupuesto de 3 horas a 40 Bs por hora»: verás cada tool que decide usar.
-4. **La tarea: el notebook [`01_primer_agente.ipynb`](01_primer_agente.ipynb).** Cinco ejercicios con autocorrección y un reto. Hazlo primero con el simulado para entender el recorrido y después con IA real.
-5. **Si te falta repaso,** [`../s0/02_repaso.ipynb`](../s0/02_repaso.ipynb).
+1. **Elige tu ruta de modelo** (5 a 15 min; cualquiera sirve, y sin ninguna usas el simulado): `uv run python -m utilidades.configurar` y luego `uv run python -m utilidades.doctor --live`. Guías: [Gemini](../docs/gemini.md) (la más rápida), [OpenRouter](../docs/openrouter.md), [Ollama](../docs/ollama.md) con `gemma4:e2b`.
+2. **Mira el bucle de un agente sin framework:** `cd s1` y `uv run python bucle_sin_framework.py` (añade `--sin-llm` para no usar red).
+3. **[`01_primer_agente.ipynb`](01_primer_agente.ipynb)** (~20 min): el bucle, el primer agente con Pydantic AI y salida tipada. Ejercicios 1 (`PlanDia`) y 2 (despachador seguro).
+4. **[`02_herramientas.ipynb`](02_herramientas.ipynb)** (~40 min): tools, `ModelRetry`, una API pública y aprobación. Ejercicios 3 (`minutos_libres`), 4 (rediseñar una tool), 5 (`ModelRetry`) y 6 (sin permiso no hay acción). Al final completas tu `mi_copiloto/agente.py`.
+5. **Conversa con tu agente:** desde `s1/`, `uv run python -m mi_copiloto.chat` (añade `--simulado` si no tienes modelo y `--modo gemini` para elegir ruta). Pide «¿Qué tengo el 2030-05-14?» y «Agenda “Llamada con Ana” el 2030-05-16 de 15:00 a 16:00»: la acción espera tu `[s/N]`. `/borrar` y `/salir` funcionan dentro.
+6. **Opcional, con IA real: [`03_ia_real.ipynb`](03_ia_real.ipynb)** (~20 min): usar una tool, preguntar o negarse, y el reto de comparar dos modelos.
 
-## La tarea: `01_primer_agente.ipynb`
-
-Ábrelo en VS Code con la carpeta del repositorio abierta: *Select Kernel → Python Environments → `.venv`*, y ejecuta con **Shift+Enter** o **Run All**.
+Abre la carpeta del repo en VS Code (extensiones Python y Jupyter), abre `s1/01_primer_agente.ipynb`, elige el kernel `.venv` (*Select Kernel → Python Environments*) y ejecuta con Shift+Enter o *Run All*.
 
 - Cada ejercicio tiene una celda `# TODO` y una celda de autocorrección: **✅** pasa, **⏳** falta algo (te dice qué). Un ⏳ no rompe el notebook.
-- **Simulado (por defecto):** `COURSE_OFFLINE=1` en `.env`. Sirve para ver el ciclo y comprobar tu código; **no mide calidad**.
-- **IA real:** pon `COURSE_OFFLINE=0` en `.env` y pulsa **Restart** en la barra del notebook. El ejercicio 5 (reto) solo tiene sentido así.
-- `.env` gana sobre las variables de tu terminal: si exportas otra `GEMINI_API_KEY`, el curso usa la de `.env`.
-- **Entrega:** el notebook con tus cambios y, si puedes, con las salidas de una ejecución con IA real. Guarda la tabla del ejercicio 5 y una frase sobre lo que la validación del esquema **no** puede comprobar.
-
-## La terminal de chat (`chat_terminal.py`)
-
-Una terminal pensada para ver al agente trabajar, más cómoda que la mínima de Pydantic AI (`agente.to_cli_sync()`, una línea, útil para una prueba rápida):
-
-- respuesta en **Markdown**, dibujada a medida que llega (streaming) con los modelos reales;
-- cada **tool** que el agente decide usar, con sus argumentos y su resultado, en tenue;
-- **uso por turno** (requests y tokens) y **historial** entre turnos;
-- errores amables (429, clave rechazada, Ollama apagado) sin traceback;
-- Ctrl+C o Ctrl+D salen limpio.
-
-| Comando | Qué hace |
-|---|---|
-| `/ayuda` | lista de comandos |
-| `/modelo` | muestra la ruta y el modelo activos |
-| `/uso` | requests y tokens acumulados de la sesión |
-| `/mensajes` | recorrido del último turno: pedido, tools, respuesta |
-| `/borrar` | olvida la conversación |
-| `/salir` | termina |
-
-Tiene dos tools de ejemplo (`calcular_presupuesto` y `hora_actual`, hora de La Paz). Añade las tuyas: son funciones con tipos y docstring, y se pasan en `tools=[...]`.
+- **Simulado (por defecto):** `COURSE_OFFLINE=1` en `.env`. Sirve para ver el recorrido y comprobar tu código; **no es IA ni mide calidad** (elige tools por parecido de palabras y puede equivocarse con las fechas). Los notebooks 01 y 02 se pueden hacer enteros así.
+- **IA real:** pon `COURSE_OFFLINE=0` en `.env` y reinicia el kernel (*Restart* en la barra del notebook). El notebook 03 solo tiene sentido así. Un modelo local pequeño (`gemma4:e2b`) a veces no llama bien una tool: es una limitación del modelo, no un error tuyo; Gemini gratis es la alternativa.
+- **Entrega** (se revisa al inicio de la siguiente sesión): tus notebooks con los cambios, tu carpeta `s1/mi_copiloto/` completada y, si puedes, las salidas de una ejecución con IA real.
 
 ## Archivos
 
 | Archivo | Qué es |
 |---|---|
-| `01_primer_agente.ipynb` | la tarea |
+| `01_primer_agente.ipynb` | el bucle y el primer agente (ejercicios 1 y 2) |
+| `02_herramientas.ipynb` | herramientas y aprobación (ejercicios 3 a 6) |
+| `03_ia_real.ipynb` | opcional, con IA real: decidir y comparar modelos |
+| `mi_copiloto/agente.py` | tu agente: `Respuesta`, instrucciones, `Deps`, tools y `crear_agente`. Tiene dos `# TODO` que completas con el notebook 02 |
+| `mi_copiloto/chat.py` | la terminal: historial, trazas de tools y `[s/N]` para aprobar |
+| `mi_copiloto/datos/` | agenda, correo y clima de práctica (ficticios o respuestas congeladas) |
 | `bucle_sin_framework.py` | el bucle de un agente con una interfaz de modelo (juguete o LLM real por HTTP) |
-| `chat_terminal.py` | terminal de chat con tools, Markdown y streaming |
-| `../copiloto/` | módulo compartido: `config.py` (rutas de modelo), `simulado.py`, `agente.py`, `practica.py` |
 
 ## Problemas frecuentes
 
 | Síntoma | Qué hacer |
 |---|---|
 | El notebook dice «simulado» y quiero IA real | `COURSE_OFFLINE=0` en `.env` y reinicia el kernel |
+| `ModuleNotFoundError: mi_copiloto` | Abre el notebook desde su carpeta (`s1/`) con el kernel del `.venv`; en la terminal, haz `cd s1` primero |
+| `NotImplementedError: Completa crear_evento` | Te falta un `# TODO` de `mi_copiloto/agente.py` (notebook 02, sección 5) |
 | `ConnectError` o «conexión rechazada» | Ollama no está activo ([ollama.md](../docs/ollama.md)) |
-| `429` | Cuota gratuita agotada: espera, cambia `GEMINI_MODEL` o usa otra ruta |
+| `429` | Cuota gratuita agotada: espera un minuto, cambia `GEMINI_MODEL` o usa otra ruta |
 | 401 o 403 | Clave mal copiada: revisa `.env` |
-| `ModuleNotFoundError: copiloto` | Estás con otro Python: usa `uv run` o el kernel del `.venv` |
+| El modelo no propone el evento | Un modelo pequeño a veces responde sin llamar la tool: repite el pedido o prueba Gemini |

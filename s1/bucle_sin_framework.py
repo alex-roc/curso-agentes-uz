@@ -14,8 +14,13 @@ import sys
 
 import httpx
 
-from copiloto.config import Settings, describir_modelo, ruta_openai
-from copiloto.herramientas import calcular_presupuesto
+from utilidades.config import Settings, describir_ruta, ruta_openai
+
+
+def calcular_presupuesto(horas: float, tarifa: float) -> dict:
+    """Calcula el costo en Bs según horas y tarifa por hora."""
+    return {"total": horas * tarifa, "moneda": "Bs"}
+
 
 PEDIDO = "Calcula el presupuesto de 3 horas de taller a 40 Bs por hora."
 
@@ -87,15 +92,15 @@ def main() -> None:
     if "--sin-llm" in sys.argv:
         return
     settings = Settings()
-    if settings.mode == "offline":
-        print("\nMODE=offline: no hay LLM. Cambia MODE en .env para probar uno real.")
+    if settings.mode == "offline" or settings.course_offline:
+        print("\nSin LLM (MODE=offline o COURSE_OFFLINE=1). Pon COURSE_OFFLINE=0 en .env para probar uno real.")
         return
-    print(f"\n== LLM real: {describir_modelo(settings)} ==")
+    print(f"\n== LLM real: {describir_ruta(settings)} ==")
     try:
         print("✅", agente(PEDIDO, modelo_real(settings)))
     except (httpx.HTTPError, ValueError, KeyError) as exc:
         sys.exit(
-            f"❌ {type(exc).__name__}: {str(exc)[:200]}\nPrueba: uv run copiloto-doctor --live"
+            f"❌ {type(exc).__name__}: {str(exc)[:200]}\nPrueba: uv run python -m utilidades.doctor --live"
         )
 
 

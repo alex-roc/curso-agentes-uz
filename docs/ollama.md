@@ -11,11 +11,11 @@ Ollama corre modelos de lenguaje **en tu computadora**: los datos no salen de tu
 
 ```bash
 ollama --version
-ollama pull qwen3:4b-instruct      # unos 2,5 GB
-ollama list                        # debe aparecer qwen3:4b-instruct
+ollama pull gemma4:e2b      # unos 4,6 GB
+ollama list                        # debe aparecer gemma4:e2b
 ```
 
-`qwen3:4b-instruct` necesita unos 6-8 GB de RAM libres. Cierra programas pesados si va lento.
+`gemma4:e2b` necesita unos 6-8 GB de RAM libres. Cierra programas pesados si va lento.
 
 ## 2. Configurar el curso
 
@@ -24,13 +24,13 @@ En `.env` (copiado de `.env.example`):
 ```dotenv
 MODE=local
 OLLAMA_BASE_URL=http://localhost:11434
-OLLAMA_MODEL=qwen3:4b-instruct
+OLLAMA_MODEL=gemma4:e2b
 ```
 
 Comprueba:
 
 ```bash
-uv run copiloto-doctor --live      # muestra el modelo y un saludo
+uv run python -m utilidades.doctor --live      # muestra el modelo y un saludo
 ```
 
 Para que los notebooks usen el modelo en lugar del simulado, pon `COURSE_OFFLINE=0` en `.env` y reinicia el kernel.
@@ -40,7 +40,7 @@ Para que los notebooks usen el modelo en lugar del simulado, pon `COURSE_OFFLINE
 | Síntoma | Causa | Qué hacer |
 |---|---|---|
 | «conexión rechazada» o `ConnectError` | Ollama no está activo | Abre la aplicación Ollama (bandeja del sistema); solo si no hay servicio, `ollama serve` en otra terminal |
-| `model not found` | No descargaste el modelo | `ollama pull qwen3:4b-instruct` |
+| `model not found` | No descargaste el modelo | `ollama pull gemma4:e2b` |
 | La primera respuesta tarda mucho | El modelo se está cargando en memoria | Espera; las siguientes son más rápidas |
 | Muy lento todo el tiempo | Poca RAM libre | Cierra programas o usa Gemini u OpenRouter |
 | `ReadTimeout` | El modelo tardó más de 120 s | Reintenta; evita correr dos cosas pesadas a la vez |

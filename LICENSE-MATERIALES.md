@@ -6,5 +6,5 @@ narrativo de los notebooks `.ipynb`) están bajo la licencia
 puedes copiarlos, adaptarlos y compartirlos, incluso con fines comerciales, citando la
 autoría: **Alex Ojeda Copa y Lab TecnoSocial**, indicando si hiciste cambios.
 
-El **código** (`copiloto/`, los scripts `.py` y las celdas de código de los notebooks) está bajo
+El **código** (`utilidades/`, los scripts `.py` y las celdas de código de los notebooks) está bajo
 la licencia MIT ([LICENSE](LICENSE)).

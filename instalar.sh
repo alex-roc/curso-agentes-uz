@@ -27,4 +27,4 @@ echo "Instalando Python 3.12 y las dependencias (la primera vez tarda unos minut
 uv sync
 
 echo
-uv run copiloto-configurar "$@"
+uv run python -m utilidades.configurar "$@"

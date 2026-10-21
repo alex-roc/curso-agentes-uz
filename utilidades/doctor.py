@@ -1,10 +1,11 @@
-"""Diagnóstico: `uv run copiloto-doctor` (config) y `uv run copiloto-doctor --live` (llama al modelo)."""
+"""Diagnóstico: `uv run python -m utilidades.doctor` (config) y `... --live` (llama al modelo)."""
 
 import asyncio
 import sys
 
-from .agente import crear_agente_basico
-from .config import Settings, describir_modelo, validar_ruta
+from pydantic_ai import Agent
+
+from .config import Settings, crear_modelo, describir_ruta, validar_ruta
 
 
 async def prueba_en_vivo(settings: Settings) -> str:
@@ -13,13 +14,14 @@ async def prueba_en_vivo(settings: Settings) -> str:
     Es async para que funcione en un notebook (`await prueba_en_vivo(s)`), donde ya hay un
     bucle de eventos; desde un script se llama con `asyncio.run(...)`.
     """
-    resultado = await crear_agente_basico(settings).run("Salúdame en una frase.")
-    return resultado.output.texto
+    agente = Agent(crear_modelo(settings))  # el agente más pequeño posible: salida de texto
+    resultado = await agente.run("Salúdame en una frase.")
+    return resultado.output
 
 
 def main() -> None:
     settings = Settings()
-    print(f"Ruta: MODE={settings.mode} · modelo={describir_modelo(settings)}")
+    print(f"Ruta: MODE={settings.mode} · modelo={describir_ruta(settings)}")
     if settings.mode == "offline":
         print("✅ Modo simulado: no hace falta nada más.")
         return

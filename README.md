@@ -26,7 +26,7 @@ Orden recomendado: **configurar** (`bash instalar.sh` o [`01_configurar`](s0/01_
    - PowerShell en Windows: `powershell -ExecutionPolicy Bypass -File instalar.ps1`
 3. **Abre los notebooks en VS Code** (ver «Notebooks en VS Code», abajo).
 
-El único requisito previo es tener internet. Si prefieres hacerlo por partes: `uv sync` y luego `uv run copiloto-configurar` (repítelo cuando quieras cambiar de ruta). Alternativa: [`s0/01_configurar.ipynb`](s0/01_configurar.ipynb). Detalles en la sección siguiente.
+El único requisito previo es tener internet. Si prefieres hacerlo por partes: `uv sync` y luego `uv run python -m utilidades.configurar` (repítelo cuando quieras cambiar de ruta). Alternativa: [`s0/01_configurar.ipynb`](s0/01_configurar.ipynb). Detalles en la sección siguiente.
 
 ## Notebooks en VS Code
 
@@ -42,7 +42,7 @@ Si no usaste el instalador, necesitas [uv](https://docs.astral.sh/uv/) y Git. uv
 git clone https://github.com/alex-roc/curso-agentes-uz.git
 cd curso-agentes-uz
 uv sync                  # crea .venv con las dependencias fijadas en uv.lock
-uv run copiloto-configurar   # crea .env, elige tu ruta de modelo y la prueba (.env nunca se sube a Git)
+uv run python -m utilidades.configurar   # crea .env, elige tu ruta de modelo y la prueba (.env nunca se sube a Git)
 code .                  # abre la carpeta en VS Code (o Archivo → Abrir carpeta)
 ```
 
@@ -56,14 +56,26 @@ Los notebooks y scripts funcionan con cualquiera; cambia una línea de `.env` (`
 
 | Ruta | `MODE` | Qué necesitas | Guía |
 |---|---|---|---|
-| Ollama local | `local` | Ollama y ~2,5 GB de modelo; datos en tu equipo | [docs/ollama.md](docs/ollama.md) |
+| Ollama local | `local` | Ollama y unos 4,6 GB de modelo (gemma4:e2b); datos en tu equipo | [docs/ollama.md](docs/ollama.md) |
 | Gemini gratis | `gemini` | Clave gratuita de AI Studio, sin tarjeta | [docs/gemini.md](docs/gemini.md) |
 | OpenRouter `:free` | `openrouter` | Clave gratuita y un modelo que termine en `:free` | [docs/openrouter.md](docs/openrouter.md) |
 | Simulado | `offline` | Nada (no es IA: solo muestra el recorrido) | este README |
 
-Los notebooks arrancan con el modelo **simulado** (`COURSE_OFFLINE=1` en `.env`). Para IA real, pon `COURSE_OFFLINE=0` y **reinicia el kernel**. Comprueba tu ruta con `uv run copiloto-doctor --live`. `.env` tiene prioridad sobre las variables de tu terminal (p. ej. una `GEMINI_API_KEY` exportada), así lo que configuraste es lo que se usa.
+Los notebooks arrancan con el modelo **simulado** (`COURSE_OFFLINE=1` en `.env`). Para IA real, pon `COURSE_OFFLINE=0` y **reinicia el kernel**. Comprueba tu ruta con `uv run python -m utilidades.doctor --live`. `.env` tiene prioridad sobre las variables de tu terminal (p. ej. una `GEMINI_API_KEY` exportada), así lo que configuraste es lo que se usa.
 
 > En las rutas gratuitas tus mensajes viajan a un proveedor y pueden usarse para mejorar sus productos: usa solo datos ficticios.
+
+## Qué es `utilidades/`
+
+Es la infraestructura del curso: código de apoyo que evita repetir lo mismo en cada notebook. **No es un framework ni es contenido de IA**: tus agentes los programas tú, con [Pydantic AI](https://ai.pydantic.dev) directamente (`Agent`, `@agent.tool`, `output_type`…).
+
+| Archivo | Para qué sirve |
+|---|---|
+| `utilidades/config.py` | Lee `.env` (`Settings`) y devuelve el modelo de la ruta que elegiste con `crear_modelo(settings)`. Cambiar de Ollama a Gemini es cambiar `MODE`; tu código no cambia. |
+| `utilidades/simulado.py` | Un modelo falso para practicar sin red ni cuota: elige una herramienta por palabras clave y rellena la respuesta. **No es IA y no mide calidad.** |
+| `utilidades/practica.py` | Ayudas de notebook: `preparar()` (lee `.env`), `revisar(...)` (te dice con ✅ o ⏳ si tu ejercicio va bien) y `ver_mensajes(...)` (muestra el recorrido de una ejecución). |
+| `utilidades/doctor.py` | `uv run python -m utilidades.doctor [--live]`: comprueba tu configuración y, con `--live`, llama al modelo. |
+| `utilidades/configurar.py` | `uv run python -m utilidades.configurar`: te guía para guardar tu clave en `.env` y probar el modelo. |
 
 ## Evaluación
 
@@ -74,7 +86,7 @@ Los notebooks arrancan con el modelo **simulado** (`COURSE_OFFLINE=1` en `.env`)
 
 ```
 instalar.sh / instalar.ps1   instalador de un paso (uv, dependencias, configurador)
-copiloto/    módulo pequeño compartido: configuración, configurador, modelo simulado, agente básico
+utilidades/  infraestructura del curso: elegir modelo, modelo simulado, configurador y doctor
 s0/          sesión 0: repaso y tarea de ejercicios (IA, Python, Pydantic, Gemini)
 s1/          sesión 1: notebook de la tarea, bucle sin framework, terminal de chat
 docs/        guías de instalación y de cada ruta de modelo

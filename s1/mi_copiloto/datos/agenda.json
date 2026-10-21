@@ -1,0 +1,10 @@
+[
+  {"fecha":"2030-05-14","inicio":"09:00","fin":"10:00","titulo":"Reunión de proyecto","tipo":"trabajo"},
+  {"fecha":"2030-05-14","inicio":"12:30","fin":"13:30","titulo":"Almuerzo","tipo":"personal"},
+  {"fecha":"2030-05-14","inicio":"18:00","fin":"19:00","titulo":"Caminata","tipo":"personal"},
+  {"fecha":"2030-05-15","inicio":"10:00","fin":"11:00","titulo":"Clase de Python","tipo":"aprendizaje"},
+  {"fecha":"2030-05-15","inicio":"16:00","fin":"17:00","titulo":"Revisión de presupuesto con Ana","tipo":"trabajo"},
+  {"fecha":"2030-05-16","inicio":"09:30","fin":"11:00","titulo":"Taller de agentes","tipo":"aprendizaje"},
+  {"fecha":"2030-05-16","inicio":"10:30","fin":"11:30","titulo":"Llamada con el banco","tipo":"personal"},
+  {"fecha":"2030-05-17","inicio":"08:00","fin":"17:00","titulo":"Paseo a Tarata (tentativo)","tipo":"personal"}
+]

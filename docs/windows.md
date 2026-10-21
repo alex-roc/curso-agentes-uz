@@ -24,7 +24,7 @@ mkdir -p /c/cursos && cd /c/cursos
 git clone https://github.com/alex-roc/curso-agentes-uz.git
 cd curso-agentes-uz
 uv sync
-uv run copiloto-configurar
+uv run python -m utilidades.configurar
 ```
 
 ## 3. Reglas útiles
