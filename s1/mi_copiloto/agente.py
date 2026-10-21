@@ -1,5 +1,7 @@
 """El agente de Mi copiloto (nace en la sesión 1). Versión para completar: busca los `# TODO`.
 
+Es lo que el docente arma en vivo al final de la clase (acto 3); tú completas las dos piezas que faltan.
+
 Cuatro piezas, todas de Pydantic AI a la vista:
 
 1. `Respuesta`: el contrato de salida (un objeto validado, no un párrafo).

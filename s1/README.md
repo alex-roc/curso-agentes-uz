@@ -2,6 +2,20 @@
 
 Miércoles 21 de octubre de 2026. Programas tu agente con **Pydantic AI directamente**: no hay ninguna capa intermedia. Los notebooks se ejecutan desde VS Code; los scripts, con `uv run` desde la carpeta `s1/`. Si aún no instalaste, sigue la [«Instalación en 3 pasos» del README](../README.md). Si ya clonaste el repo, `git pull` te trae esta carpeta.
 
+## Cómo se conecta con la clase
+
+La clase tiene tres actos; en cada uno el docente muestra una idea y la hace en vivo, y tú la repites en tu notebook.
+
+| Acto | Qué se ve en clase | Lo repites en |
+|---|---|---|
+| Arranque | caso Mi copiloto, rutas de modelo, utilidades | paso 1 de abajo: `python -m utilidades.configurar` |
+| 1 · ¿Qué es un agente? | chatbot, flujo y agente; anatomía; el bucle ReAct | `bucle_sin_framework.py` y notebook 01, secciones 2 a 2.1 |
+| 2 · Lo mismo con Pydantic AI | frameworks, elegir modelo, salida estructurada, errores | notebook 01, secciones 2.2 a 7, y ejercicios 1 y 2 |
+| 3 · Darle manos: herramientas | usar, preguntar o negarse; tools, `Deps`, `ModelRetry`; leer frente a escribir | notebook 02, secciones 1 a 5, y ejercicios 3 a 6 |
+| Cierre | `mi_copiloto/agente.py` y la terminal | tu `s1/mi_copiloto/` (dos `# TODO`) y `python -m mi_copiloto.chat` |
+
+Tu `mi_copiloto/agente.py` es el que el docente arma en vivo al final de la clase.
+
 ## Qué hacer, en orden
 
 1. **Elige tu ruta de modelo** (5 a 15 min; cualquiera sirve, y sin ninguna usas el simulado): `uv run python -m utilidades.configurar` y luego `uv run python -m utilidades.doctor --live`. Guías: [Gemini](../docs/gemini.md) (la más rápida), [OpenRouter](../docs/openrouter.md), [Ollama](../docs/ollama.md) con `gemma4:e2b`.

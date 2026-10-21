@@ -4,8 +4,9 @@ Un modelo es cualquier función `llamar(mensajes) -> mensaje` en el formato de l
 con OpenAI (Ollama, Gemini y OpenRouter la hablan). El bucle no sabe si detrás hay un modelo
 de juguete o un LLM real: por eso cambiar de proveedor no toca el agente.
 
-    uv run python s1/bucle_sin_framework.py              # modelo de juguete y LLM real
-    uv run python s1/bucle_sin_framework.py --sin-llm    # solo el de juguete (sin red)
+    cd s1
+    uv run python bucle_sin_framework.py                 # modelo de juguete y LLM real
+    uv run python bucle_sin_framework.py --sin-llm       # solo el de juguete (sin red)
 """
 
 import json
