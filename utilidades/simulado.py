@@ -174,6 +174,11 @@ def responder(messages: list[ModelMessage], info: AgentInfo) -> ModelResponse:
         schema = herramienta.parameters_json_schema
         args = _rellenar(schema, schema.get("$defs", {}), texto, pedido, [])
         return ModelResponse(parts=[ToolCallPart(herramienta.name, args)])
+    objeto = info.model_request_parameters.output_object  # NativeOutput o PromptedOutput: JSON como texto
+    if objeto is not None:
+        schema = objeto.json_schema
+        args = _rellenar(schema, schema.get("$defs", {}), texto, pedido, [])
+        return ModelResponse(parts=[TextPart(json.dumps(args, ensure_ascii=False))])
     return ModelResponse(parts=[TextPart(texto)])
 
 
@@ -182,5 +187,5 @@ def modelo_simulado() -> FunctionModel:
     # Sin tools nativas: así WebSearch y WebFetch usan su versión local (una tool normal) y el
     # simulado puede elegirlas como cualquier otra.
     return FunctionModel(
-        responder, model_name="simulado", profile=ModelProfile(supported_native_tools=frozenset())
+        responder, model_name="simulado", profile=ModelProfile(supported_native_tools=frozenset(), supports_json_schema_output=True)
     )
