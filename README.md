@@ -10,7 +10,7 @@ Virtual sincrónico, **lunes, miércoles y jueves de 19:00 a 22:00**, del 19 al 
 | 0 | lun 19 oct (inicio) | Repaso previo: IA y Python | [`s0/`](s0/)|
 | 1 | mié 21 oct | Introducción a Pydantic AI y tools (agente, tools, capabilities, APIs abiertas y SQLite para leer y escribir) | [`s1/`](s1/) |
 | 2 | jue 22 oct | Conocimiento, contexto y memoria (web, RAG con Chroma y memoria) | [`s2/`](s2/) |
-| 3 | lun 26 oct | Interoperabilidad, automatización y MCP | próximamente |
+| 3 | lun 26 oct | Interoperabilidad, automatización y MCP (usar y crear servidores MCP, errores, permisos e inyección indirecta) | [`s3/`](s3/) |
 | 4 | mié 28 oct | Flujos agénticos y sistemas de varios agentes | próximamente |
 | 5 | jue 29 oct | Despliegue y cierre con el proyecto final | próximamente |
 
@@ -90,6 +90,7 @@ utilidades/  infraestructura del curso: elegir modelo, modelo simulado, configur
 s0/          sesión 0: repaso y tarea de ejercicios (IA, Python, Pydantic, Gemini)
 s1/          sesión 1: notebook de Pydantic AI y tools (ejercicios 1 a 6 y reto)
 s2/          sesión 2: notebook de conocimiento y memoria (ejercicios 1 a 6 y reto) y datos/
+s3/          sesión 3: notebook de MCP e integración (ejercicios 1 a 6 y reto) y datos/
 docs/        guías de instalación y de cada ruta de modelo
 ```
 

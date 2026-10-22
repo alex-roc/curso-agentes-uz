@@ -10,3 +10,6 @@ __pycache__/
 # Lo que crean los notebooks de la S2
 conversaciones/
 recuerdos.txt
+# Lo que crean los notebooks de la S3
+informes/
+mi_servidor.py
