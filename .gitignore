@@ -7,3 +7,6 @@ __pycache__/
 .ipynb_checkpoints/
 *.db
 .DS_Store
+# Lo que crean los notebooks de la S2
+conversaciones/
+recuerdos.txt

@@ -20,13 +20,23 @@ from pydantic_ai.messages import (
     UserPromptPart,
 )
 from pydantic_ai.models.function import AgentInfo, FunctionModel
+from pydantic_ai.profiles import ModelProfile
 
 
 def _numeros(texto: str) -> list[float]:
     return [float(n.replace(",", ".")) for n in re.findall(r"\d+(?:[.,]\d+)?", texto)]
 
 
-_SINONIMOS = {"paraguas": "lluvia", "llover": "lluvia", "llueve": "lluvia", "temperatura": "clima"}
+_SINONIMOS = {
+    "paraguas": "lluvia",
+    "llover": "lluvia",
+    "llueve": "lluvia",
+    "temperatura": "clima",
+    # Las tools web de Pydantic AI (WebSearch, WebFetch) se describen en inglés.
+    "busca": "search",
+    "buscar": "search",
+    "pagina": "page",
+}
 # Verbos de escritura: si el pedido los usa, se prefieren las tools que piden aprobación.
 _ESCRIBIR = re.compile(
     r"\b(crea|crear|agendame|agendar|anota|anotar|registra|registrar|programa|añade|anade"
@@ -72,6 +82,9 @@ def _texto_para(campo: str, pedido: str, horas: list[str]) -> str:
     if "titulo" in nombre or "título" in nombre or "asunto" in nombre:
         citado = re.search(r"[«\"]([^»\"]+)[»\"]", pedido)
         return citado.group(1) if citado else pedido[:60]
+    if "url" in nombre:
+        enlace = re.search(r"https?://\S+", pedido)
+        return enlace.group(0).rstrip(".,;)»") if enlace else ""
     if "ciudad" in nombre or "lugar" in nombre:
         lugar = re.search(r"\ben ([A-ZÁÉÍÓÚÑ][\wáéíóúñ]+)", pedido)
         return lugar.group(1) if lugar else ""
@@ -166,4 +179,8 @@ def responder(messages: list[ModelMessage], info: AgentInfo) -> ModelResponse:
 
 def modelo_simulado() -> FunctionModel:
     """El modelo que recibe `Agent(...)` cuando la ruta es el modo simulado."""
-    return FunctionModel(responder, model_name="simulado")
+    # Sin tools nativas: así WebSearch y WebFetch usan su versión local (una tool normal) y el
+    # simulado puede elegirlas como cualquier otra.
+    return FunctionModel(
+        responder, model_name="simulado", profile=ModelProfile(supported_native_tools=frozenset())
+    )

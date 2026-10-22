@@ -12,6 +12,7 @@ Ollama corre modelos de lenguaje **en tu computadora**: los datos no salen de tu
 ```bash
 ollama --version
 ollama pull gemma4:e2b      # unos 4,6 GB
+ollama pull embeddinggemma  # unos 600 MB: embeddings para buscar en documentos (sesión 2)
 ollama list                        # debe aparecer gemma4:e2b
 ```
 

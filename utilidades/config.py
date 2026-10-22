@@ -39,6 +39,9 @@ class Settings(BaseSettings):
     openrouter_api_key: SecretStr = SecretStr("")
     openrouter_model: str = ""
     request_limit: int = Field(default=8, ge=1, le=30)
+    # Modelos de embeddings (sesión 2): uno por ruta. Ollama: `ollama pull embeddinggemma`.
+    ollama_embedding_model: str = "embeddinggemma"
+    gemini_embedding_model: str = "gemini-embedding-001"
 
     @classmethod
     def settings_customise_sources(
@@ -169,6 +172,39 @@ def crear_modelo(settings: Settings, offline: bool = False):
             api_key=settings.openrouter_api_key.get_secret_value(),
             http_client=_cliente_con_reintentos(),
         ),
+    )
+
+
+def crear_embeddings(settings: Settings, offline: bool = False):
+    """La función de embeddings de Chroma para tu ruta: `get_or_create_collection(..., embedding_function=...)`.
+
+    - `MODE=local`: `embeddinggemma` en Ollama (entiende bien el español).
+    - `MODE=gemini`: `gemini-embedding-001` de Google (gratis, con tu clave).
+    - Simulado u OpenRouter: el modelo pequeño que trae Chroma (`all-MiniLM-L6-v2`, se descarga
+      una vez, unos 80 MB). Funciona sin clave, pero está entrenado en inglés: en español
+      encuentra peor.
+
+    Ollama y Gemini hablan el protocolo de embeddings de OpenAI, por eso basta un mismo
+    `OpenAIEmbeddingFunction` con otra URL y otra clave.
+    """
+    from chromadb.utils.embedding_functions import (
+        DefaultEmbeddingFunction,
+        OpenAIEmbeddingFunction,
+    )
+
+    if offline or settings.offline or settings.mode == "openrouter":
+        return DefaultEmbeddingFunction()
+    validar_ruta(settings)
+    if settings.mode == "local":
+        return OpenAIEmbeddingFunction(
+            api_key="ollama",
+            api_base=settings.ollama_base_url.rstrip("/") + "/v1",
+            model_name=settings.ollama_embedding_model,
+        )
+    return OpenAIEmbeddingFunction(
+        api_key=settings.gemini_api_key.get_secret_value(),
+        api_base="https://generativelanguage.googleapis.com/v1beta/openai/",
+        model_name=settings.gemini_embedding_model,
     )
 
 
