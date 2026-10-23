@@ -2,7 +2,7 @@
 name = "curso-agentes-uz"
 version = "0.1.0"
 authors = [{name = "Alex Ojeda Copa"}, {name = "Lab TecnoSocial"}]
-description = "Materiales para estudiantes del curso «Más allá de los chatbots» (UNIFRANZ, 2026)"
+description = "Materiales para estudiantes del curso «Más allá de los chatbots» (Alex Ojeda Copa y Lab TecnoSocial)"
 requires-python = ">=3.12,<3.15"
 dependencies = [
   "pydantic-ai-slim[duckduckgo,google,mcp,openai,openrouter,web-fetch]==2.57.0",
